@@ -2,7 +2,7 @@
   <div class="container">
     <h3 class="welcome">
       Welcome to
-      <i style="color:#ffa500" class="author douyin">bigBen</i> 's Blog
+      <i style="color:#ffa500" class="author">bigBen</i> 's Blog
     </h3>
     <div class="sort-container">
       <div class="item" v-for="(item,index) in list " :key="index">
@@ -27,7 +27,12 @@ export default {
     return {
       list: [
         { title: "Home", id: "home", icon: "icon-home", routerLink: "/home" },
-        { title: "Blog", id: "blod", icon: "icon-blog", routerLink: "/blog" },
+        {
+          title: "Blog",
+          id: "blod",
+          icon: "icon-bokeblogger3",
+          routerLink: "/blog"
+        },
         {
           title: "About me",
           id: "personal",

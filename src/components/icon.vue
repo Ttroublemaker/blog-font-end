@@ -23,3 +23,8 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.iconfont {
+  font-size: 1.1em;
+}
+</style>
