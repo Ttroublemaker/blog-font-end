@@ -2,29 +2,35 @@
   <div class="container">
     <h3 class="welcome">
       Welcome to
-      <i style="color:#ffa500" class="author">bigBen</i> 's Blog
+      <i style="color:#ffa500" class="author">TroubleMaker</i> 's Blog
     </h3>
     <div class="sort-container">
       <div class="item" v-for="(item,index) in list " :key="index">
-        <router-link :to="item.routerLink">
+        <div @click="goToLink(item)">
           <span class="icon">
             <Icon :iconClass="item.icon" />
           </span>
           <span class="content">{{item.title}}</span>
-        </router-link>
+        </div>
         <span class="border-bottom"></span>
       </div>
+    </div>
+    <div class="audio-container">
+      <audioPlayer :showOrHide="showOrHide" />
     </div>
   </div>
 </template>
 <script>
 import Icon from "../../components/icon";
+import audioPlayer from "./audio-player";
 export default {
   components: {
-    Icon
+    Icon,
+    audioPlayer
   },
   data() {
     return {
+      showOrHide: "show",
       list: [
         { title: "Home", id: "home", icon: "icon-home", routerLink: "/home" },
         {
@@ -34,6 +40,12 @@ export default {
           routerLink: "/blog"
         },
         {
+          title: "Music",
+          id: "personal",
+          icon: "icon-person_alt_circle_fill",
+          routerLink: ""
+        },
+        {
           title: "About me",
           id: "personal",
           icon: "icon-person_alt_circle_fill",
@@ -41,6 +53,25 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    goToLink(item) {
+      if (item.title === "Music") {
+        if (this.showOrHide === "show") {
+          this.showOrHide = "hide";
+          return;
+        }
+        this.showOrHide = "show";
+        return
+      }
+      this.showOrHide = "hide";
+      if (item.routerLink) {
+        this.$router.push(item.routerLink);
+        return;
+      } else {
+        // do nothing
+      }
+    }
   }
 };
 </script>
@@ -52,6 +83,7 @@ export default {
   border-bottom: 1px solid #ddd;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   //   去掉下划线
   a {
     text-decoration: none;
@@ -103,6 +135,14 @@ export default {
         border-bottom: 2px solid #ffa500;
       }
     }
+  }
+  .audio-container {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    z-index: 999;
+    top: 60px;
+    right: 120px;
   }
 }
 .welcome:hover {
