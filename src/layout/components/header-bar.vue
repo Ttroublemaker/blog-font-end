@@ -42,7 +42,7 @@ export default {
         {
           title: "Music",
           id: "personal",
-          icon: "icon-person_alt_circle_fill",
+          icon: "icon-yinle",
           routerLink: ""
         },
         {

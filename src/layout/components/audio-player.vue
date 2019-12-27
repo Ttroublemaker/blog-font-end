@@ -1,6 +1,6 @@
 <template>
   <div id="aplayer" ref="aplayer" v-show="showOrHide!=='hide'">
-    <aplayer autoplay :music="music" :list="list" :float="true" />
+    <aplayer autoplay :music="music" :list="list" />
   </div>
 </template>
 <script>
