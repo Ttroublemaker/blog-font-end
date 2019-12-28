@@ -10,7 +10,8 @@
           个人DIY博客系统，用于知识分享、学习笔记及美好
           <i style="text-decoration:line-through;color:red;">苦逼</i> 生活记录
         </span>
-        <span class="detail">查看详情</span>
+        <!-- <span class="detail">查看详情</span> -->
+        <router-link class="detail" to="/blog">查看详情</router-link>
       </div>
       <div class="content-item">
         <span class="title">
@@ -20,7 +21,7 @@
           去见你想见的人吧。趁阳光正好。趁微风不噪。趁繁花还未开至荼蘼。趁现在还年轻，还可以走很长很长的路，还能诉说很深很深的思念。
           趁世界还不那么拥挤。 趁飞机现在还没有起飞。趁现在时光还没有吞噬你们的留念。 趁现在自己的双手还能拥抱彼此。趁我们还有呼吸。 去见你想见的人吧。
         </span>
-        <span class="detail">查看详情</span>
+        <router-link class="detail" to="/life">查看详情</router-link>
       </div>
       <div class="content-item">
         <span class="title">
@@ -30,7 +31,7 @@
           虽然在学习的过程中会遇到许多不顺心的事，但古人说得好--吃一堑，长一智。多了一次失败，
           就多了一次教训；多了一次挫折，就多了一次经验。没有失败和挫折的人，是永远不会成功的。
         </span>
-        <span class="detail">查看详情</span>
+        <router-link class="detail" to="/learn">查看详情</router-link>
       </div>
       <div class="content-item">
         <span class="title">
@@ -39,12 +40,12 @@
         <span class="summary">
           <table class="table-me">
             <tr>
-              <td>Name：</td>
+              <td>Author：</td>
               <td>钟跃</td>
             </tr>
             <tr>
               <td>Pen Name：</td>
-              <td>TroubleMaker</td>
+              <td>Ttroublemaker</td>
             </tr>
             <tr>
               <td>Age：</td>
@@ -56,7 +57,7 @@
             </tr>
           </table>
         </span>
-        <span class="detail">查看详情</span>
+        <router-link class="detail" to="/personal">查看详情</router-link>
       </div>
     </div>
   </div>
@@ -156,6 +157,7 @@ export default {
         position: absolute;
         bottom: 0;
         border-top: 1px solid #fff;
+        font-weight: 400 !important;
       }
       .detail:hover {
         color: #fff;

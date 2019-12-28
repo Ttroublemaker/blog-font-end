@@ -2,6 +2,9 @@
   <div class="main-container">
     <headerBar />
     <router-view :key="$route.fullPath" />
+    <el-backtop :visibility-height="400" :bottom="60">
+      <i class="iconfont icon-Touchgesturescrolltop"></i>
+    </el-backtop>
   </div>
 </template>
 <script>
@@ -19,5 +22,8 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   min-height: 400px;
+  i {
+    font-size: 28px;
+  }
 }
 </style>

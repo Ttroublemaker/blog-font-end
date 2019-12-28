@@ -1,5 +1,5 @@
 <template>
-  <div class="about doudong">Personal</div>
+  <div class="about doudong">Life</div>
 </template>
 
 <script>

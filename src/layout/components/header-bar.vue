@@ -5,8 +5,8 @@
       <i style="color:#ffa500" class="author">TroubleMaker</i> 's Blog
     </h3>
     <div class="sort-container">
-      <div class="item" v-for="(item,index) in list " :key="index">
-        <div @click="goToLink(item)">
+      <div class="item" v-for="(item,index) in list " :key="index" @click="goToLink(item)">
+        <div>
           <span class="icon">
             <Icon :iconClass="item.icon" />
           </span>
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="audio-container">
-      <audioPlayer :showOrHide="showOrHide" />
+      <!-- <audioPlayer :showOrHide="showOrHide" /> -->
     </div>
   </div>
 </template>
@@ -30,15 +30,27 @@ export default {
   },
   data() {
     return {
-      showOrHide: "show",
+      showOrHide: "hide",
       list: [
         { title: "Home", id: "home", icon: "icon-home", routerLink: "/home" },
-        {
-          title: "Blog",
-          id: "blod",
-          icon: "icon-bokeblogger3",
-          routerLink: "/blog"
-        },
+        // {
+        //   title: "Blog",
+        //   id: "blod",
+        //   icon: "icon-bokeblogger3",
+        //   routerLink: "/blog"
+        // },
+        // {
+        //   title: "learn",
+        //   id: "learn",
+        //   icon: "icon-xuexi",
+        //   routerLink: "/learn"
+        // },
+        // {
+        //   title: "Life",
+        //   id: "life",
+        //   icon: "icon-lvyou",
+        //   routerLink: "/life"
+        // },
         {
           title: "Music",
           id: "personal",
@@ -62,7 +74,7 @@ export default {
           return;
         }
         this.showOrHide = "show";
-        return
+        return;
       }
       this.showOrHide = "hide";
       if (item.routerLink) {
@@ -142,7 +154,7 @@ export default {
     justify-content: space-between;
     z-index: 999;
     top: 60px;
-    right: 120px;
+    right: 80px;
   }
 }
 .welcome:hover {

@@ -17,13 +17,31 @@ const routes = [{
     {
       path: 'blog',
       name: 'blog',
-      component: () => import('../views/Blog.vue')
+      component: () => import('../views/Blog/Blog.vue'),
+    }, {
+      path: 'blog-create',
+      name: 'blog-create',
+      component: () => import('../views/Blog/components/blog-create.vue'),
+    },
+    {
+      path: 'life',
+      name: 'life',
+      component: () => import('../views/Life.vue')
+    }, {
+      path: 'learn',
+      name: 'learn',
+      component: () => import('../views/Learn.vue')
     },
     {
       path: 'personal',
       name: 'personal',
-      component: () => import('../views/Personal.vue')
-    }
+      component: () => import('../views/Personal/Personal.vue')
+    },
+    {
+      path: '*',
+      name: '*',
+      redirect: '/home',
+    },
   ]
 }, ]
 
