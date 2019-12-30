@@ -9,6 +9,7 @@
         </template>
         <div class="detail">
           {{item.content}}
+          <br />
           <span class="handle">
             <el-button type="text">详情</el-button>
             <el-button type="text">更新</el-button>
@@ -81,9 +82,12 @@ export default {
 }
 .el-collapse-item__content {
   .detail {
-    position: relative;
     .handle {
-      position: absolute;
+      display: inline-block;
+      width: 100%;
+      position: relative;
+      text-align: right;
+      white-space: nowrap;
       right: 0;
       bottom: 0;
       .el-button {

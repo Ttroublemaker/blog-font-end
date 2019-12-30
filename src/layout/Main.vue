@@ -3,7 +3,7 @@
     <headerBar />
     <router-view :key="$route.fullPath" />
     <el-backtop :visibility-height="400" :bottom="60">
-      <i class="iconfont icon-Touchgesturescrolltop"></i>
+      <i class="iconfont icon-fanhuidingbu"></i>
     </el-backtop>
   </div>
 </template>

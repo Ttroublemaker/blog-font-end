@@ -85,7 +85,12 @@ export default {
       login("zhangsan", 123);
     },
     toCreateNewBlog() {
-      this.$router.push("/blog-create");
+      this.$router.push({
+        path: "/blog-create",
+        query: {
+          type: "add"
+        }
+      });
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
