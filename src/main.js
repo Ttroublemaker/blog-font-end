@@ -6,6 +6,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.config.productionTip = false
 Vue.use(ElementUI);
+import 'normalize.css/normalize.css' //样式初始化
+
 
 new Vue({
   router,

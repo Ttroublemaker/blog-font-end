@@ -20,7 +20,6 @@
   display: flex;
   border-radius: 4px;
   overflow: hidden;
-  height: 300px;
   flex-direction: column;
   align-items: space-around;
   font-size: 14px;
@@ -30,7 +29,8 @@
   transition: all 0.5s;
   .img {
     width: 100%;
-    height: 160px;
+    height: 0; // 设置高为0，让padding撑起高
+    padding-bottom: 60%; /* 让div的高等于宽的0.618黄金比 */
     overflow: hidden;
     img {
       width: 100%;

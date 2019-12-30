@@ -40,3 +40,10 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+// 迫使左边距为0
+.el-timeline {
+  padding-inline-start: 0 !important;
+  width: 100% !important;
+}
+</style>

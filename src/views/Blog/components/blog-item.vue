@@ -71,7 +71,7 @@ export default {
   }
   .time {
     position: absolute;
-    right: 40px;
+    right: 30px;
   }
   &.is-active {
     .index {

@@ -17,13 +17,18 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main-container {
-  width: 96%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 15%;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   min-height: 400px;
   i {
     font-size: 28px;
+  }
+}
+@media screen and (max-width: 1400px) {
+  .main-container {
+    padding: 0 5%;
   }
 }
 </style>

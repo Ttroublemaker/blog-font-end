@@ -13,6 +13,7 @@
   // color: #2c3e50;
   color: #4a4a4a;
   position: relative;
+  height: 100vh;
 }
 
 #nav {

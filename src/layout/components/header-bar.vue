@@ -1,9 +1,10 @@
 <template>
   <div class="container">
-    <h3 class="welcome">
+    <h3 class="welcome medium">
       Welcome to
       <i style="color:#ffa500" class="author">TroubleMaker</i> 's Blog
     </h3>
+    <h3 class="welcome mini">Welcome</h3>
     <div class="sort-container">
       <div class="item" v-for="(item,index) in list " :key="index" @click="goToLink(item)">
         <div>
@@ -16,7 +17,7 @@
       </div>
     </div>
     <div class="audio-container">
-      <!-- <audioPlayer :showOrHide="showOrHide" /> -->
+      <audioPlayer :showOrHide="showOrHide" />
     </div>
   </div>
 </template>
@@ -33,24 +34,6 @@ export default {
       showOrHide: "hide",
       list: [
         { title: "Home", id: "home", icon: "icon-home", routerLink: "/home" },
-        // {
-        //   title: "Blog",
-        //   id: "blod",
-        //   icon: "icon-bokeblogger3",
-        //   routerLink: "/blog"
-        // },
-        // {
-        //   title: "learn",
-        //   id: "learn",
-        //   icon: "icon-xuexi",
-        //   routerLink: "/learn"
-        // },
-        // {
-        //   title: "Life",
-        //   id: "life",
-        //   icon: "icon-lvyou",
-        //   routerLink: "/life"
-        // },
         {
           title: "Music",
           id: "personal",
@@ -104,6 +87,9 @@ export default {
     .author {
       display: inline-block;
     }
+    &.mini {
+      display: none;
+    }
   }
   .sort-container {
     display: inline-flex;
@@ -122,6 +108,7 @@ export default {
       .content {
         color: #4a4a4a;
         transition: color 1s;
+        white-space: nowrap; //不允许换行
       }
       .border-bottom {
         display: inline-block;
@@ -154,13 +141,30 @@ export default {
     justify-content: space-between;
     z-index: 999;
     top: 60px;
-    right: 80px;
+    right: -4px;
   }
 }
 .welcome:hover {
   .author {
     color: #ddd;
     animation: uk-flicker 2s cubic-bezier(1, -2.91, 0, 3.79) 0s infinite normal;
+  }
+}
+@media screen and (max-width: 800px) {
+  .container {
+    .welcome.medium {
+      display: none !important;
+    }
+    .welcome.mini {
+      display: block !important;
+      color: #ffa500;
+    }
+    .sort-container {
+      .item {
+        font-size: 14px;
+        margin: 0 4px;
+      }
+    }
   }
 }
 // 摇摆

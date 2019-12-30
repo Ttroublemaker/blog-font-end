@@ -24,9 +24,12 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page.sync="currentPage3"
+          background
+          :small="isSmall"
           :page-size="10"
-          layout="prev, pager, next, jumper"
-          :total="12"
+          :pager-count="5"
+          :total="1922"
+          :layout="page_Layout"
         ></el-pagination>
       </section>
     </div>
@@ -47,6 +50,7 @@
 import { login } from "../../api/index.js";
 import blogItem from "./components/blog-item";
 import recommendItem from "./components/recommend-item";
+
 export default {
   components: {
     blogItem,
@@ -54,13 +58,27 @@ export default {
   },
   data() {
     return {
+      screenWidth: document.body.clientWidth, //获取body宽度
       activeName: "first",
+      isSmall: false,
       currentPage1: 5,
       currentPage2: 5,
       currentPage3: 5,
       currentPage4: 4,
       recommendList: [{}, {}, {}, {}]
     };
+  },
+  computed: {
+    // 移动端适配
+    page_Layout() {
+      if (this.screenWidth > 800) {
+        this.isSmall = false;
+        return "prev, pager, next, jumper";
+      } else {
+        this.isSmall = true;
+        return "prev, pager, next";
+      }
+    }
   },
   methods: {
     toLogin() {
@@ -80,9 +98,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .blog {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
   .header {
     margin-bottom: 10px;
     padding: 10px 0;
@@ -94,11 +114,12 @@ export default {
   }
   .blog-list,
   .recommend-list {
+    box-sizing: border-box;
     text-align: left;
     border: 1px solid #ddd;
     border-radius: 2px;
     padding: 10px;
-    width: 60%;
+    width: 70%;
     margin-bottom: 20px;
   }
   .el-pagination {
@@ -113,7 +134,23 @@ export default {
       justify-content: space-around;
       .item {
         width: 45%;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1200px) {
+  .blog-list,
+  .recommend-list {
+    width: 100% !important;
+  }
+}
+@media screen and (max-width: 900px) {
+  .recommend-list {
+    .recommend-items-container {
+      .item {
+        width: 90% !important;
+        margin-bottom: 30px !important;
       }
     }
   }
