@@ -12,8 +12,6 @@
           <br />
           <span class="handle">
             <el-button type="text">详情</el-button>
-            <el-button type="text">更新</el-button>
-            <el-button type="text">删除</el-button>
           </span>
         </div>
       </el-collapse-item>
@@ -23,27 +21,35 @@
 <script>
 export default {
   name: "blogItem",
+  props: {
+    blogList: {
+      type: Array,
+      default: function() {
+        return this.initList;
+      }
+    }
+  },
   data() {
     return {
       activeName: "1",
-      blogList: [
+      initList: [
         {
           name: "01",
-          title: "如何做一个美男子",
+          title: "如何做一个美男子1",
           time: "2019-12-30",
           content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
           根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
         },
         {
           name: "02",
-          title: "如何做一个美男子",
+          title: "如何做一个美男子2",
           time: "2019-12-30",
           content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
           根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
         },
         {
           name: "03",
-          title: "如何做一个美男子",
+          title: "如何做一个美男子3",
           time: "2019-12-30",
           content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
           根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
@@ -54,44 +60,53 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.el-collapse-item__header {
-  .index {
-    display: inline-block;
-    height: 20px;
-    line-height: 20px;
-    width: 30px;
-    padding: 0 2px;
-    text-align: center;
-    color: white;
-    border-radius: 2px;
-    background-color: #909399;
-    margin-right: 20px;
-  }
-  .title {
-    font-weight: 600;
-  }
-  .time {
-    position: absolute;
-    right: 30px;
-  }
-  &.is-active {
+.bolg-item-container {
+  .el-collapse-item__header {
+    position: relative !important;
     .index {
-      background-color: #f56c6c;
+      display: inline-block;
+      height: 20px;
+      line-height: 20px;
+      width: 30px;
+      padding: 0 2px;
+      text-align: center;
+      color: white;
+      border-radius: 2px;
+      background-color: #909399;
+      margin-right: 20px;
+    }
+    .title {
+      font-weight: 600;
+    }
+    .time {
+      position: absolute;
+      right: 30px;
+    }
+    .el-collapse-item__arrow {
+      width: 20px;
+      display: inline-block;
+      height: 20px;
+      margin: 0;
+    }
+    &.is-active {
+      .index {
+        background-color: #f56c6c;
+      }
     }
   }
-}
-.el-collapse-item__content {
-  .detail {
-    .handle {
-      display: inline-block;
-      width: 100%;
-      position: relative;
-      text-align: right;
-      white-space: nowrap;
-      right: 0;
-      bottom: 0;
-      .el-button {
-        padding: 0 4px;
+  .el-collapse-item__content {
+    .detail {
+      .handle {
+        display: inline-block;
+        width: 100%;
+        position: relative;
+        text-align: right;
+        white-space: nowrap;
+        right: 0;
+        bottom: 0;
+        .el-button {
+          padding: 0 4px;
+        }
       }
     }
   }

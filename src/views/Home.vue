@@ -5,47 +5,22 @@
       <div class="content-container">
         <div class="content-item">
           <span class="title">
-            <Icon iconClass="icon-bokeblogger3" class="icon" />Blog
+            <Icon iconClass="icon-bokeblogger3" class="icon" />技术博客
           </span>
-          <span class="summary" style="display:inline">
-            个人DIY博客系统，用于知识分享、学习笔记及美好
-            <i style="text-decoration:line-through;color:red;">苦逼</i> 生活记录
-          </span>
-          <!-- <span class="detail">查看详情</span> -->
+          <span
+            class="summary"
+          >科学上没有平坦的大道，真理长河中有无数礁石险滩。只有不畏攀登的采药者，只有不怕巨浪的弄潮儿，才能登上高峰采得仙草，深入水底觅得骊珠。——华罗庚</span>
           <router-link class="detail" to="/blog">查看详情</router-link>
         </div>
         <div class="content-item">
           <span class="title">
-            <Icon iconClass="icon-lvyou" class="icon" />Life
+            <Icon iconClass="icon-lvyou" class="icon" />生活博客
           </span>
           <span class="summary">
             去见你想见的人吧。趁阳光正好。趁微风不噪。趁繁花还未开至荼蘼。趁现在还年轻，还可以走很长很长的路，还能诉说很深很深的思念。
             趁世界还不那么拥挤。 趁飞机现在还没有起飞。趁现在时光还没有吞噬你们的留念。 趁现在自己的双手还能拥抱彼此。趁我们还有呼吸。 去见你想见的人吧。
           </span>
           <router-link class="detail" to="/life">查看详情</router-link>
-        </div>
-
-        <div class="content-item">
-          <span class="title">
-            <Icon iconClass="icon-person_alt_circle_fill" class="icon" />Me
-          </span>
-          <span class="summary">
-            <table class="table-me">
-              <tr>
-                <td>Author：</td>
-                <td>钟跃</td>
-              </tr>
-              <tr>
-                <td>Pen Name：</td>
-                <td>Ttroublemaker</td>
-              </tr>
-              <tr>
-                <td>Dev Time：</td>
-                <td>1 year</td>
-              </tr>
-            </table>
-          </span>
-          <router-link class="detail" to="/personal">查看详情</router-link>
         </div>
       </div>
     </div>
@@ -70,10 +45,15 @@ export default {
   margin-bottom: 20px;
   // 切记留出空格,否则不起作用
   height: calc(100vh - #{$HEIGHT} - 30px);
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  // -webkit- browser 隐藏scrollbar
+  &::-webkit-scrollbar {
+    display: none;
+  }
   background-color: #ddd;
-  background: url("../assets/images/bg1.gif");
-  background-size: 100%;
+  background: url("../assets/images/bg1.gif") no-repeat center;
+  background-size: cover;
   position: relative;
 
   .scroll-container {
@@ -85,7 +65,7 @@ export default {
     .home-title {
       color: #ddd;
       font-size: 46px;
-      margin: 50px 0 30px 0;
+      margin: 50px 0;
       font-weight: 600;
     }
     .content-container {
@@ -97,7 +77,7 @@ export default {
       .content-item {
         width: 355px;
         border-radius: 6px;
-        height: 200px;
+        height: 190px;
         padding: 10px 0;
         margin: 20px 30px;
         background-color: rgba(255, 255, 255, 0.7);
@@ -133,18 +113,8 @@ export default {
           padding-bottom: 0;
           text-overflow: ellipsis;
           display: -webkit-box;
-          -webkit-line-clamp: 4;
+          -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
-          .table-me {
-            border-collapse: collapse;
-            td:nth-child(odd) {
-              text-align: right;
-              font-weight: 600;
-            }
-            td:nth-child(even) {
-              text-align: left;
-            }
-          }
         }
         .detail {
           padding: 15px;

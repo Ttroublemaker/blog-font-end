@@ -2,7 +2,7 @@
   <div class="main-container">
     <headerBar />
     <router-view :key="$route.fullPath" />
-    <el-backtop :visibility-height="400" :bottom="60">
+    <el-backtop :visibility-height="400" :bottom="40">
       <i class="iconfont icon-fanhuidingbu"></i>
     </el-backtop>
   </div>
@@ -17,18 +17,17 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main-container {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0 15%;
-  position: absolute;
+  margin: 0 15%;
   min-height: 400px;
-  i {
-    font-size: 28px;
+  .el-backtop {
+    i {
+      font-size: 32px;
+    }
   }
 }
 @media screen and (max-width: 1400px) {
   .main-container {
-    padding: 0 5%;
+    margin: 0 5%;
   }
 }
 </style>

@@ -1,9 +1,17 @@
 <template>
   <div class="blog">
-    <div class="blog-list">
+    <div class="search-list">
+      <div class="seacrh-title">
+        <el-input placeholder="按关键字搜索blog" v-model="searchInput" @keyup.enter.native="search">
+          <i slot="suffix" class="el-input__icon el-icon-search"></i>
+        </el-input>
+        <el-button type="primary" icon="el-icon-search" @click.native="search">搜索</el-button>
+      </div>
+      <searchResult :searchList="searchList" v-if="searching" />
+    </div>
+    <div class="blog-list" v-if="!searching">
       <header class="header">
         <i class="iconfont icon-liebiao2"></i>博客列表
-        <el-button type="text" icon="el-icon-edit" @click="toCreateNewBlog">新建</el-button>
       </header>
       <section class="blog-items-container">
         <el-tabs v-model="activeName">
@@ -33,7 +41,7 @@
         ></el-pagination>
       </section>
     </div>
-    <div class="recommend-list">
+    <div class="recommend-list" v-if="!searching">
       <header class="header">
         <i class="iconfont icon-tuijian1"></i> 特别推荐
       </header>
@@ -50,22 +58,49 @@
 import { login } from "../../api/index.js";
 import blogItem from "./components/blog-item";
 import recommendItem from "./components/recommend-item";
+import searchResult from "./components/search-result";
 
 export default {
   components: {
     blogItem,
-    recommendItem
+    recommendItem,
+    searchResult
   },
   data() {
     return {
       screenWidth: document.body.clientWidth, //获取body宽度
       activeName: "first",
       isSmall: false,
+      searchInput: "",
       currentPage1: 5,
       currentPage2: 5,
       currentPage3: 5,
       currentPage4: 4,
-      recommendList: [{}, {}, {}, {}]
+      recommendList: [{}, {}, {}, {}],
+      searching: false,
+      searchList: [
+        {
+          name: "01",
+          title: "如何做一个美男子search",
+          time: "2019-12-30",
+          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
+          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
+        },
+        {
+          name: "02",
+          title: "如何做一个美男子",
+          time: "2019-12-30",
+          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
+          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
+        },
+        {
+          name: "03",
+          title: "如何做一个美男子",
+          time: "2019-12-30",
+          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
+          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
+        }
+      ]
     };
   },
   computed: {
@@ -84,13 +119,9 @@ export default {
     toLogin() {
       login("zhangsan", 123);
     },
-    toCreateNewBlog() {
-      this.$router.push({
-        path: "/blog-create",
-        query: {
-          type: "add"
-        }
-      });
+    search() {
+      this.searching = true;
+      console.log("search");
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -107,16 +138,24 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  text-align: left;
   position: relative;
+  .search-list {
+    .seacrh-title {
+      margin-bottom: 20px;
+      display: inline-flex;
+      .el-input {
+        margin-right: 10px;
+      }
+    }
+  }
   .header {
     margin-bottom: 10px;
     padding: 10px 0;
     font-weight: 600;
     border-bottom: 1px solid #ddd;
-    .el-button {
-      padding: 0 10px;
-    }
   }
+  .search-list,
   .blog-list,
   .recommend-list {
     box-sizing: border-box;

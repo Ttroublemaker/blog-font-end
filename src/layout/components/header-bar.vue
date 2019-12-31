@@ -16,30 +16,19 @@
         <span class="border-bottom"></span>
       </div>
     </div>
-    <div class="audio-container">
-      <audioPlayer :showOrHide="showOrHide" />
-    </div>
   </div>
 </template>
 <script>
 import Icon from "../../components/icon";
-import audioPlayer from "./audio-player";
 export default {
   components: {
-    Icon,
-    audioPlayer
+    Icon
   },
   data() {
     return {
       showOrHide: "hide",
       list: [
         { title: "Home", id: "home", icon: "icon-home", routerLink: "/home" },
-        {
-          title: "Music",
-          id: "personal",
-          icon: "icon-yinle",
-          routerLink: ""
-        },
         {
           title: "About me",
           id: "personal",
@@ -51,15 +40,6 @@ export default {
   },
   methods: {
     goToLink(item) {
-      if (item.title === "Music") {
-        if (this.showOrHide === "show") {
-          this.showOrHide = "hide";
-          return;
-        }
-        this.showOrHide = "show";
-        return;
-      }
-      this.showOrHide = "hide";
       if (item.routerLink) {
         this.$router.push(item.routerLink);
         return;
