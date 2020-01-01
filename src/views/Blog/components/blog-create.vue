@@ -20,16 +20,11 @@
         <span class="label">是否推荐：</span>
         <el-switch v-model="switch_value" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
       </div>
-      <markdown />
     </div>
   </div>
 </template>
 <script>
-import markdown from "../../../components/markdown";
 export default {
-  components: {
-    markdown
-  },
   data() {
     return {
       options: [

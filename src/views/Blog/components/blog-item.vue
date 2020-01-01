@@ -11,7 +11,7 @@
           {{item.content}}
           <br />
           <span class="handle">
-            <el-button type="text">详情</el-button>
+            <el-button type="text">阅读全文</el-button>
           </span>
         </div>
       </el-collapse-item>
@@ -61,8 +61,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .bolg-item-container {
+  position: relative; //控制time定位
   .el-collapse-item__header {
-    position: relative !important;
     .index {
       display: inline-block;
       height: 20px;
@@ -81,12 +81,6 @@ export default {
     .time {
       position: absolute;
       right: 30px;
-    }
-    .el-collapse-item__arrow {
-      width: 20px;
-      display: inline-block;
-      height: 20px;
-      margin: 0;
     }
     &.is-active {
       .index {

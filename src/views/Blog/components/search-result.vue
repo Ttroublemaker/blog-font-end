@@ -3,11 +3,11 @@
     <header class="header">
       <i class="iconfont icon-sousuo2"></i> 搜索结果
     </header>
-    <blogItem :blogList="searchList" />
+    <blogItem :blogList="searchList" v-if="searchList.length" />
     <el-pagination
+      v-if="searchList.length"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page.sync="currentPage3"
       background
       :small="isSmall"
       :page-size="10"
@@ -15,6 +15,7 @@
       :total="1922"
       :layout="page_Layout"
     ></el-pagination>
+    <span v-else class="notice">对不起, 未搜索到相关内容</span>
   </div>
 </template>
 <script>
@@ -33,11 +34,7 @@ export default {
     return {
       screenWidth: document.body.clientWidth, //获取body宽度
       isSmall: false,
-      searchInput: "",
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4
+      searchInput: ""
     };
   },
   computed: {
@@ -64,8 +61,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  width: 100%;
-  box-sizing: border-box;
   border: 1px solid #ddd;
   border-radius: 2px;
   padding: 10px;
@@ -76,9 +71,13 @@ export default {
     font-weight: 600;
     border-bottom: 1px solid #ddd;
   }
-}
-.el-pagination {
-  margin-top: 20px;
-  text-align: right;
+  .notice {
+    display: inline-block;
+    margin: 20px 0;
+  }
+  .el-pagination {
+    margin-top: 20px;
+    text-align: right;
+  }
 }
 </style>

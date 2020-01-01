@@ -5,23 +5,18 @@
       <div class="content-container">
         <div class="content-item">
           <span class="title">
-            <Icon iconClass="icon-bokeblogger3" class="icon" />技术博客
+            <Icon iconClass="icon-bokeblogger3" class="icon" />My 博客
           </span>
-          <span
-            class="summary"
-          >科学上没有平坦的大道，真理长河中有无数礁石险滩。只有不畏攀登的采药者，只有不怕巨浪的弄潮儿，才能登上高峰采得仙草，深入水底觅得骊珠。——华罗庚</span>
+          <span class="summary">每天坚持三件事，看脸、看秤、看余额。如果脸不够美，秤不够低，余额不够多。那么，请继续奋斗！</span>
           <router-link class="detail" to="/blog">查看详情</router-link>
         </div>
-        <div class="content-item">
+        <!-- <div class="content-item">
           <span class="title">
             <Icon iconClass="icon-lvyou" class="icon" />生活博客
           </span>
-          <span class="summary">
-            去见你想见的人吧。趁阳光正好。趁微风不噪。趁繁花还未开至荼蘼。趁现在还年轻，还可以走很长很长的路，还能诉说很深很深的思念。
-            趁世界还不那么拥挤。 趁飞机现在还没有起飞。趁现在时光还没有吞噬你们的留念。 趁现在自己的双手还能拥抱彼此。趁我们还有呼吸。 去见你想见的人吧。
-          </span>
+          <span class="summary">去见你想见的人吧。趁阳光正好。趁微风不噪。趁繁花还未开至荼蘼。趁现在还年轻，还可以走很长很长的路，还能诉说很深很深的思念。</span>
           <router-link class="detail" to="/life">查看详情</router-link>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
@@ -51,22 +46,20 @@ export default {
   &::-webkit-scrollbar {
     display: none;
   }
-  background-color: #ddd;
   background: url("../assets/images/bg1.gif") no-repeat center;
   background-size: cover;
-  position: relative;
 
   .scroll-container {
     min-height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     .home-title {
       color: #ddd;
       font-size: 46px;
-      margin: 50px 0;
       font-weight: 600;
+      margin-bottom: 100px;
     }
     .content-container {
       width: 100%;
@@ -81,16 +74,12 @@ export default {
         padding: 10px 0;
         margin: 20px 30px;
         background-color: rgba(255, 255, 255, 0.7);
-        font-size: 16px;
         display: flex;
         flex-direction: column;
         position: relative;
         overflow: hidden;
         transition: all 0.5s;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-        .el-divider--horizontal {
-          margin: 0;
-        }
         .title,
         .summary,
         .detail {
@@ -101,7 +90,7 @@ export default {
         }
         .title {
           display: inline-flex;
-          font-size: 20px;
+          font-size: 22px;
           justify-content: center;
           font-weight: 600;
           > * {
@@ -117,8 +106,8 @@ export default {
           -webkit-box-orient: vertical;
         }
         .detail {
-          padding: 15px;
           position: absolute;
+          padding: 15px;
           bottom: 0;
           border-top: 1px solid #fff;
           font-weight: 400 !important;
@@ -152,7 +141,7 @@ export default {
     transform: scale(1.1);
   }
   50% {
-    transform: scale(1.6);
+    transform: scale(1.5);
   }
   to {
     transform: scale(1.1);

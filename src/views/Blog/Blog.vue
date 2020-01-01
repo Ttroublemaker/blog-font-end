@@ -10,36 +10,7 @@
       <searchResult :searchList="searchList" v-if="searching" />
     </div>
     <div class="blog-list" v-if="!searching">
-      <header class="header">
-        <i class="iconfont icon-liebiao2"></i>博客列表
-      </header>
-      <section class="blog-items-container">
-        <el-tabs v-model="activeName">
-          <el-tab-pane label="HTML" name="first">
-            <blogItem />
-          </el-tab-pane>
-          <el-tab-pane label="CSS" name="second">
-            <blogItem />
-          </el-tab-pane>
-          <el-tab-pane label="JavaScript" name="third">
-            <blogItem />
-          </el-tab-pane>
-          <el-tab-pane label="Other" name="fourth">
-            <blogItem />
-          </el-tab-pane>
-        </el-tabs>
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page.sync="currentPage3"
-          background
-          :small="isSmall"
-          :page-size="10"
-          :pager-count="5"
-          :total="1922"
-          :layout="page_Layout"
-        ></el-pagination>
-      </section>
+      <blogList />
     </div>
     <div class="recommend-list" v-if="!searching">
       <header class="header">
@@ -51,31 +22,31 @@
         </div>
       </section>
     </div>
+    <div class="blog-list-timeline">
+      <blogListTimeline />
+    </div>
   </div>
 </template>
 
 <script>
 import { login } from "../../api/index.js";
-import blogItem from "./components/blog-item";
+import blogList from "./components/blog-list";
 import recommendItem from "./components/recommend-item";
 import searchResult from "./components/search-result";
+import blogListTimeline from "./components/blog-list-timeline";
 
 export default {
   components: {
-    blogItem,
     recommendItem,
-    searchResult
+    searchResult,
+    blogList,
+    blogListTimeline
   },
   data() {
     return {
       screenWidth: document.body.clientWidth, //获取body宽度
       activeName: "first",
-      isSmall: false,
       searchInput: "",
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
       recommendList: [{}, {}, {}, {}],
       searching: false,
       searchList: [
@@ -103,18 +74,6 @@ export default {
       ]
     };
   },
-  computed: {
-    // 移动端适配
-    page_Layout() {
-      if (this.screenWidth > 800) {
-        this.isSmall = false;
-        return "prev, pager, next, jumper";
-      } else {
-        this.isSmall = true;
-        return "prev, pager, next";
-      }
-    }
-  },
   methods: {
     toLogin() {
       login("zhangsan", 123);
@@ -122,12 +81,6 @@ export default {
     search() {
       this.searching = true;
       console.log("search");
-    },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
-    },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
     }
   }
 };
@@ -138,23 +91,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  text-align: left;
-  position: relative;
-  .search-list {
-    .seacrh-title {
-      margin-bottom: 20px;
-      display: inline-flex;
-      .el-input {
-        margin-right: 10px;
-      }
-    }
-  }
-  .header {
-    margin-bottom: 10px;
-    padding: 10px 0;
-    font-weight: 600;
-    border-bottom: 1px solid #ddd;
-  }
   .search-list,
   .blog-list,
   .recommend-list {
@@ -166,11 +102,25 @@ export default {
     width: 70%;
     margin-bottom: 20px;
   }
-  .el-pagination {
-    margin-top: 20px;
-    text-align: right;
+  .search-list {
+    border: 1px solid transparent;
+    padding: 0;
+    margin-bottom: 0;
+    .seacrh-title {
+      margin-bottom: 20px;
+      display: inline-flex;
+      .el-input {
+        margin-right: 10px;
+      }
+    }
   }
   .recommend-list {
+    .header {
+      margin-bottom: 10px;
+      padding: 10px 0;
+      font-weight: 600;
+      border-bottom: 1px solid #ddd;
+    }
     .recommend-items-container {
       padding: 20px 10px;
       display: flex;
@@ -178,14 +128,25 @@ export default {
       justify-content: space-around;
       .item {
         width: 45%;
-        margin-bottom: 50px;
+        margin: 20px 0;
       }
     }
   }
+  .blog-list-timeline {
+    position: absolute;
+    text-align: left;
+    right: 0;
+    width: 30%;
+  }
 }
 @media screen and (max-width: 1200px) {
+  .search-list,
   .blog-list,
   .recommend-list {
+    width: 100% !important;
+  }
+  .blog-list-timeline {
+    position: relative !important;
     width: 100% !important;
   }
 }
