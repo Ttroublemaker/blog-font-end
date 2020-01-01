@@ -7,6 +7,9 @@
         </el-input>
         <el-button type="primary" icon="el-icon-search" @click.native="search">搜索</el-button>
       </div>
+      <span class="close" @click="closeSearchResult" v-if="searching">
+        <i class="iconfont icon-shanchuguanbicha"></i>
+      </span>
       <searchResult :searchList="searchList" v-if="searching" />
     </div>
     <div class="blog-list" v-if="!searching">
@@ -22,7 +25,7 @@
         </div>
       </section>
     </div>
-    <div class="blog-list-timeline">
+    <div class="blog-list-timeline" v-if="!searching">
       <blogListTimeline />
     </div>
   </div>
@@ -81,6 +84,10 @@ export default {
     search() {
       this.searching = true;
       console.log("search");
+    },
+    closeSearchResult() {
+      console.log("close");
+      this.searching = false;
     }
   }
 };
@@ -104,6 +111,7 @@ export default {
   }
   .search-list {
     border: 1px solid transparent;
+    position: relative;
     padding: 0;
     margin-bottom: 0;
     .seacrh-title {
@@ -113,7 +121,18 @@ export default {
         margin-right: 10px;
       }
     }
+    .close {
+      position: absolute;
+      background-color: #fff;
+      border-radius: 50%;
+      right: -10px;
+      top: 47px;
+      i {
+        font-size: 24px;
+      }
+    }
   }
+
   .recommend-list {
     .header {
       margin-bottom: 10px;
