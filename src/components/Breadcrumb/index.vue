@@ -16,62 +16,58 @@
 </template>
 
 <script>
-import pathToRegexp from "path-to-regexp";
+import pathToRegexp from 'path-to-regexp'
 
 export default {
-  name: "Breadcrumb",
+  name: 'Breadcrumb',
   data() {
     return {
       levelList: null
-    };
+    }
   },
   created() {
-    this.getBreadcrumb();
-  },
+      this.getBreadcrumb()
+    },
   watch: {
     $route() {
-      this.getBreadcrumb();
+      this.getBreadcrumb()
     }
   },
   methods: {
     getBreadcrumb() {
       // $route.matched数组，包含当前匹配的路径中所包含的所有片段所对应的配置参数对象。
-      let matched = this.$route.matched.filter(
-        item => item.meta && item.meta.title
-      );
-      const first = matched[0];
-      this.levelList = matched.filter(
-        item => item.meta && item.meta.title && item.meta.breadcrumb !== false
-      );
-      console.log(this.levelList);
+      let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
+      const first = matched[0]
+      this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
+      console.log(this.levelList)
       // console.log(matched)
     },
 
     // 填充 url 字符串的参数值,见 https://www.jianshu.com/p/7d2dbfdd1b0f
     pathCompile(path) {
-      const { params } = this.$route;
-      var toPath = pathToRegexp.compile(path);
-      return toPath(params);
+      const { params } = this.$route
+      var toPath = pathToRegexp.compile(path)
+      return toPath(params)
     },
 
     handleLink(item) {
-      const { redirect, path } = item;
+      const { redirect, path} = item
       // 方案1：保证每次点击路由的query项都是不一样的，确保会重新刷新view,
       // 方案2，重写路由的push方法，
       if (redirect) {
         this.$router.push({
-          path: redirect
+          path:redirect,
           // query:{t: +new Date()}
-        });
-        return;
+        })
+        return
       }
       this.$router.push({
-        path: this.pathCompile(path)
+        path:this.pathCompile(path),
         // query:{t: +new Date()}
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

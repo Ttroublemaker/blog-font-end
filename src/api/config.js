@@ -9,13 +9,13 @@ var baseURL = ''
 var fileUpBaseUrl = ''
 
 if (process.env.NODE_ENV === 'development') {
-    baseURL = ''
-    fileUpBaseUrl = ''
+  baseURL = ''
+  fileUpBaseUrl = ''
 } else {
-    baseURL = ''
-    fileUpBaseUrl = ''
+  baseURL = ''
+  fileUpBaseUrl = ''
 }
 export {
-    baseURL,
-    fileUpBaseUrl
+  baseURL,
+  fileUpBaseUrl
 }

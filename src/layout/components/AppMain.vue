@@ -5,7 +5,7 @@
     </transition>
     <settingDrawer />
     <el-backtop :visibility-height="400" :bottom="60">
-      <svg-icon iconClass="top1"></svg-icon>
+      <svg-icon iconClass="fanhuidingbu"></svg-icon>
     </el-backtop>
   </section>
 </template>
@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="scss" scoped>
 .app-main {
   /*navbar高为50px  */
   min-height: calc(100vh - 50px);

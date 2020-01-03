@@ -33,17 +33,18 @@ export default {
 };
 </script>
 
-<style  lang="scss">
+<style  lang="scss" scoped>
 .setting-container {
+  position: fixed;
+  top: 40vh;
+  right: 30px;
   .iconSetting {
-    position: absolute;
-    top: 45%;
-    right: 30px;
     font-size: 24px;
     z-index: 999;
+    color: #409eff;
   }
 }
-.el-drawer {
+/deep/.el-drawer {
   .el-drawer__header {
     font-size: 24px;
     font-weight: bold;
@@ -51,7 +52,12 @@ export default {
   }
   .el-drawer__body {
     padding-left: 40px;
+    text-align: left;
   }
+}
+// 优化抽屉出现时出现横向滚动条
+/deep/.el-drawer__container {
+  overflow-x: hidden;
 }
 </style>
 

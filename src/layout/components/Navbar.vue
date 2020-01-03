@@ -28,14 +28,14 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import Breadcrumb from "@/components/Breadcrumb";
-import Hamburger from "@/components/Hamburger";
-import Tabs from "@/components/Tabs";
+import { mapGetters } from "vuex"
+import Breadcrumb from "@/components/Breadcrumb"
+import Hamburger from "@/components/Hamburger"
+import Tabs from "@/components/Tabs"
 
 export default {
   data() {
-    return { navBarType: "Tabs" };
+    return { navBarType: "Tabs" }
   },
   components: {
     Breadcrumb,
@@ -43,7 +43,7 @@ export default {
     Hamburger
   },
   mounted() {
-    this.getNavBarType();
+    this.getNavBarType()
   },
   computed: {
     ...mapGetters(["sidebar", "avatar"])
@@ -51,20 +51,20 @@ export default {
   methods: {
     getNavBarType() {
       this.$eventBus.$on("navBarType", v => {
-        this.navBarType = v;
-      });
+        this.navBarType = v
+      })
     },
     toggleSideBar() {
-      this.$store.dispatch("app/toggleSideBar");
+      this.$store.dispatch("app/toggleSideBar")
     },
     async logout() {
-      await this.$store.dispatch("user/logout");
+      await this.$store.dispatch("user/logout")
       // 去往登录页面，并将当前路由作为参数传过去
       // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
-      this.$router.push("/login");
+      this.$router.push("/login")
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
