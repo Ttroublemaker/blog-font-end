@@ -1,0 +1,10 @@
+/**
+ * @description 判断是否外部链接
+ * @param {string} path
+ * @returns {Boolean}
+ */
+export function isExternal(path) {
+  return /^(https?:|mailto:|tel:)/.test(path)
+}
+
+
