@@ -11,7 +11,7 @@
           {{item.content}}
           <br />
           <span class="handle">
-            <el-button type="text">阅读全文</el-button>
+            <el-button type="text" @click="goToDetail(item.id||2)">阅读全文</el-button>
             <el-button type="text" @click.native="toAdd_edit('edit',id=0)">更新</el-button>
             <el-button type="text" style="color:#F56C6C">删除</el-button>
           </span>
@@ -62,6 +62,9 @@ export default {
   methods: {
     toAdd_edit(type, id) {
       this.$router.push({ path: "/create", query: { type, id } });
+    },
+    goToDetail(id) {
+      this.$router.push({ path: "/article-detail", query: { id } });
     }
   }
 };

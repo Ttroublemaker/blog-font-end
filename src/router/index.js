@@ -48,23 +48,17 @@ export const constantRoutes = [{
         title: '新建',
         icon: 'xieboke',
       }
-    }]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    // 如果只有一个子路径，则使用子路径的meta
-    children: [{
-      path: 'form',
-      name: 'Form',
-      component: () => import('@/views/Home'),
+    }, {
+      path: 'article-detail',
+      name: 'article-detail',
+      component: () => import('@/views/home/article-detail.vue'),
+      hidden: true,
       meta: {
-        title: 'Form',
-        icon: 'form'
+        title: '文章详情',
+        icon: 'xieboke',
       }
     }]
-  }
+  },
 ]
 
 /**

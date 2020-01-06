@@ -20,6 +20,9 @@
         <span class="label">是否推荐：</span>
         <el-switch v-model="switch_value" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
       </div>
+      <mavon-editor v-model="markdownValue" @save="handleOnSave" />
+      <el-button type="primary" class="save" @click.native="handleOnSave">保存</el-button>
+      <!-- <el-button type="primary" class="save" @click.native="handle">test</el-button> -->
     </div>
   </div>
 </template>
@@ -27,6 +30,9 @@
 export default {
   data() {
     return {
+      markdownValue: "", //markdown编辑器内容
+      uploadFile: "",
+      temp: "",
       options: [
         {
           value: "html",
@@ -62,6 +68,13 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    handleOnSave() {
+      console.log(this.markdownValue);
+      this.temp = this.markdownValue;
+    },
+    handle() {
+      this.markdownValue = this.temp;
     }
   }
 };
@@ -80,6 +93,9 @@ export default {
     }
   }
   .blog-edit-add {
+    position: relative;
+    padding-bottom: 60px;
+    margin-bottom: 20px;
     .title {
       text-align: center !important;
       margin-bottom: 40px;
@@ -97,6 +113,11 @@ export default {
         text-align: left;
         margin-right: 10px;
       }
+    }
+    .save {
+      position: absolute;
+      bottom: 0;
+      right: 0;
     }
   }
 }
