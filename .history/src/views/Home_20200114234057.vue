@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { login, getBlogList, getBlogDetail, createNewBlog, updateBlog, delBlog } from "../api/index.js";
+import { login, loginTest, getBlogList, getBlogDetail, createNewBlog, updateBlog, delBlog } from "../api/index.js";
 import Icon from "../components/icon";
 export default {
   components: {
@@ -31,7 +31,7 @@ export default {
     toLogin () {
       login('zhangsan', 123)
     },
-    toTest () { 
+    toTest () {
       delBlog(23);
     }
   }

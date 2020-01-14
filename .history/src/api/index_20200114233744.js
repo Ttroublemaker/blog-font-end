@@ -11,6 +11,11 @@ export const login = (username, password) => service({
   },
 })
 
+export const loginTest = () => service({
+  method: 'GET',
+  url: '/api/user/login-test',
+})
+
 export const getBlogList = (keyword = '') => service({
   method: 'GET',
   url: '/api/blog/list',
@@ -43,9 +48,4 @@ export const updateBlog = (id, { title, content }) => service({
     title,
     content
   }
-})
-
-export const delBlog = (id) => service({
-  method: 'POST',
-  url: '/api/blog/del?id=' + id,
 })

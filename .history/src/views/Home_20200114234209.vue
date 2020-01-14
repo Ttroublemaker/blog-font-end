@@ -31,7 +31,7 @@ export default {
     toLogin () {
       login('zhangsan', 123)
     },
-    toTest () { 
+    toTest () {
       delBlog(23);
     }
   }

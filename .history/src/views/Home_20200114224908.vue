@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { login, getBlogList, getBlogDetail, createNewBlog, updateBlog, delBlog } from "../api/index.js";
+import { login, loginTest, getBlogList, getBlogDetail } from "../api/index.js";
 import Icon from "../components/icon";
 export default {
   components: {
@@ -29,10 +29,11 @@ export default {
   },
   methods: {
     toLogin () {
-      login('zhangsan', 123)
+      console.log("获取blog");
+      getBlogList('1');
     },
-    toTest () { 
-      delBlog(23);
+    toTest () {
+      getBlogDetail(4);
     }
   }
 };

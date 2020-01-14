@@ -12,27 +12,35 @@
           <span class="summary">每天坚持三件事，看脸、看秤、看余额。如果脸不够美，秤不够低，余额不够多。那么，请继续奋斗！</span>
           <router-link class="detail" to="/blog">查看详情</router-link>
         </div>
+        <!-- <div class="content-item">
+          <span class="title">
+            <Icon iconClass="icon-lvyou" class="icon" />生活博客
+          </span>
+          <span class="summary">去见你想见的人吧。趁阳光正好。趁微风不噪。趁繁花还未开至荼蘼。趁现在还年轻，还可以走很长很长的路，还能诉说很深很深的思念。</span>
+          <router-link class="detail" to="/life">查看详情</router-link>
+        </div>-->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { login, getBlogList, getBlogDetail, createNewBlog, updateBlog, delBlog } from "../api/index.js";
+import { login, loginTest } from "../api/index.js";
 import Icon from "../components/icon";
 export default {
   components: {
     Icon
   },
-  data () {
+  data() {
     return {};
   },
   methods: {
-    toLogin () {
-      login('zhangsan', 123)
+    toLogin() {
+      console.log("登陆");
+      login("zhangsan", 123);
     },
-    toTest () { 
-      delBlog(23);
+    toTest() {
+      loginTest();
     }
   }
 };
