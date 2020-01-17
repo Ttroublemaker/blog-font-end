@@ -1,43 +1,32 @@
 <template>
   <div class="blog">
+    <!-- <el-upload class="upload-demo" action="http://localhost:3000/file/uploadFile/multiple" multiple :limit="3" ref="elupload">
+      <el-button size="small" type="primary">点击上传</el-button>
+    </el-upload>
+    <el-button size="small" type="primary" @click="download" style="margin:10px 0">点击下载</el-button>
+    <el-button size="small" type="primary" @click="del">点击删除</el-button> -->
     <div class="search-list">
-      <div class="seacrh-title">
-        <el-input placeholder="按关键字搜索blog" v-model="searchInput" @keyup.enter.native="search">
-          <i slot="suffix" class="el-input__icon el-icon-search"></i>
-        </el-input>
-        <el-button type="primary" icon="el-icon-search" @click.native="search">搜索</el-button>
-      </div>
-      <span class="close" @click="closeSearchResult" v-if="searching">
-        <i class="iconfont icon-shanchuguanbicha"></i>
-      </span>
-      <searchResult :searchList="searchList" v-if="searching" />
+      <searchResult @searching=closeSearch />
     </div>
     <div class="blog-list" v-if="!searching">
       <blogList />
     </div>
     <div class="recommend-list" v-if="!searching">
-      <header class="header">
-        <i class="iconfont icon-tuijian1"></i> 特别推荐
-      </header>
-      <section class="recommend-items-container">
-        <div class="item" v-for="(item,index) in recommendList" :key="index">
-          <recommendItem />
-        </div>
-      </section>
+      <recommendItem />
     </div>
-    <div class="blog-list-timeline" v-if="!searching">
+    <!-- <div class="blog-list-timeline" v-if="!searching">
       <blogListTimeline />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import { login } from "../../api/index.js";
 import blogList from "./components/blog-list";
 import recommendItem from "./components/recommend-item";
 import searchResult from "./components/search-result";
 import blogListTimeline from "./components/blog-list-timeline";
 
+const fs = require('fs')
 export default {
   components: {
     recommendItem,
@@ -45,49 +34,32 @@ export default {
     blogList,
     blogListTimeline
   },
-  data() {
+  data () {
     return {
       screenWidth: document.body.clientWidth, //获取body宽度
-      activeName: "first",
-      searchInput: "",
-      recommendList: [{}, {}, {}, {}],
       searching: false,
-      searchList: [
-        {
-          name: "01",
-          title: "如何做一个美男子search",
-          time: "2019-12-30",
-          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-        },
-        {
-          name: "02",
-          title: "如何做一个美男子",
-          time: "2019-12-30",
-          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-        },
-        {
-          name: "03",
-          title: "如何做一个美男子",
-          time: "2019-12-30",
-          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-        }
-      ]
     };
   },
   methods: {
-    toLogin() {
-      login("zhangsan", 123);
+    closeSearch (val) {
+      this.searching = val
     },
-    search() {
-      this.searching = true;
-      console.log("search");
+    downloadUrl (url) {
+      let iframe = document.createElement('iframe');
+      iframe.style.display = 'none'
+      iframe.src = url
+      iframe.onload = function () {
+        document.body.removeChild(iframe)
+      }
+      document.body.appendChild(iframe)
     },
-    closeSearchResult() {
-      console.log("close");
-      this.searching = false;
+    download () {
+      const oldname = '1578541601676-add.png'
+      const filename = '312'
+      this.downloadUrl(`http://localhost:3000/file/downloadFile?filename='${filename}'&oldname=${oldname}`);
+    },
+    del () {
+
     }
   }
 };
@@ -105,51 +77,14 @@ export default {
     text-align: left;
     border: 1px solid #ddd;
     border-radius: 2px;
-    padding: 10px;
+    padding: 20px;
     width: 70%;
     margin-bottom: 20px;
   }
   .search-list {
     border: 1px solid transparent;
-    position: relative;
     padding: 0;
     margin-bottom: 0;
-    .seacrh-title {
-      margin-bottom: 20px;
-      display: inline-flex;
-      .el-input {
-        margin-right: 10px;
-      }
-    }
-    .close {
-      position: absolute;
-      background-color: #fff;
-      border-radius: 50%;
-      right: -10px;
-      top: 47px;
-      i {
-        font-size: 24px;
-      }
-    }
-  }
-
-  .recommend-list {
-    .header {
-      margin-bottom: 10px;
-      padding: 10px 0;
-      font-weight: 600;
-      border-bottom: 1px solid #ddd;
-    }
-    .recommend-items-container {
-      padding: 20px 10px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      .item {
-        width: 45%;
-        margin: 20px 0;
-      }
-    }
   }
   .blog-list-timeline {
     position: absolute;
@@ -167,16 +102,6 @@ export default {
   .blog-list-timeline {
     position: relative !important;
     width: 100% !important;
-  }
-}
-@media screen and (max-width: 900px) {
-  .recommend-list {
-    .recommend-items-container {
-      .item {
-        width: 90% !important;
-        margin-bottom: 30px !important;
-      }
-    }
   }
 }
 </style>

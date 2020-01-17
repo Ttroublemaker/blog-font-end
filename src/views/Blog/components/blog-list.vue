@@ -4,112 +4,38 @@
       <i class="iconfont icon-liebiao2"></i>博客列表
     </header>
     <section class="blog-items-container">
-      <el-tabs v-model="activeName" @tab-click="tabSwitch">
-        <el-tab-pane
-          v-for="(item,index) in initData"
-          :key="index"
-          :label="item.name"
-          :name="item.name"
-        >
-          <blogItem :blogList="item.data" v-if="item.data.length" />
-          <span class="notice" v-else>暂无相关内容</span>
-          <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            background
-            :small="isSmall"
-            :page-size="10"
-            :pager-count="5"
-            :total="200"
-            :layout="page_Layout"
-          ></el-pagination>
-        </el-tab-pane>
-      </el-tabs>
+      <blogItem :blogList="blogList" v-if="blogList.length" />
+      <span class="notice" v-else>暂无相关内容</span>
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" background :small="isSmall" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" :pager-count='5' :layout="page_Layout" :total="total"></el-pagination>
     </section>
   </div>
 </template>
 <script>
 import blogItem from "./blog-item";
+import { login, getBlogList, getBlogDetail, createNewBlog, updateBlog, switchrecommend, delBlog } from "../../../api/index.js";
+
 export default {
   components: {
     blogItem
   },
-  data() {
+  data () {
     return {
       screenWidth: document.body.clientWidth, //获取body宽度
       isSmall: false,
-      activeName: "HTML",
-      initData: [
-        {
-          name: "HTML",
-          data: [
-            {
-              name: "01",
-              title: "如何做一个美男子1",
-              time: "2019-12-30",
-              content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-            },
-            {
-              name: "02",
-              title: "如何做一个美男子2",
-              time: "2019-12-30",
-              content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-            }
-          ]
-        },
-        {
-          name: "CSS",
-          data: [
-            {
-              name: "01",
-              title: "如何做一个美男子1",
-              time: "2019-12-30",
-              content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-            }
-          ]
-        },
-        {
-          name: "JavaScript",
-          data: [
-            {
-              name: "01",
-              title: "如何做一个美男子1",
-              time: "2019-12-30",
-              content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-            },
-            {
-              name: "02",
-              title: "如何做一个美男子2",
-              time: "2019-12-30",
-              content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-            },
-            {
-              name: "02",
-              title: "如何做一个美男子2",
-              time: "2019-12-30",
-              content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-            }
-          ]
-        },
-        {
-          name: "Other",
-          data: []
-        }
-      ]
+      blogList: [],
+      total: 0,
+      currentPage:1
     };
+  },
+  created () {
+    this.initData()
   },
   computed: {
     // 移动端适配
-    page_Layout() {
+    page_Layout () {
       if (this.screenWidth > 800) {
         this.isSmall = false;
-        return "prev, pager, next, jumper";
+        return "total, sizes, prev, pager, next, jumper";
       } else {
         this.isSmall = true;
         return "prev, pager, next";
@@ -117,24 +43,31 @@ export default {
     }
   },
   methods: {
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+    // 获取初始数据
+    initData () {
+      getBlogList().then(res => {
+        console.log(res.data.data.data)
+        this.blogList = res.data.data.data
+        this.total = res.data.data.pagination.total
+      })
     },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+    handleSizeChange (val) {
+      // console.log(`每页 ${val} 条`);
+      getBlogList({ page_size: val }).then(res => {
+        this.blogList = res.data.data.data
+      })
     },
-    tabSwitch($event) {
-      console.log(2);
-      console.log($event.name);
+    handleCurrentChange (val) {
+      // console.log(`当前页: ${val}`);
+      getBlogList({ page_count: val }).then(res => {
+        this.blogList = res.data.data.data
+      })
     }
   }
 };
 </script>
 <style lang="scss" scoped>
 .container {
-  border: 1px solid #ddd;
-  border-radius: 2px;
-  padding: 10px;
   margin-bottom: 20px;
   .header {
     margin-bottom: 10px;

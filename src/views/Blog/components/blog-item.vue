@@ -3,9 +3,9 @@
     <el-collapse v-model="activeName" accordion>
       <el-collapse-item v-for="(item,index) in blogList" :key="index" :name="item.name">
         <template slot="title">
-          <span class="index">{{item.name}}</span>
+          <span class="index">{{index}}</span>
           <span class="title">{{item.title}}</span>
-          <span class="time">{{item.time}}</span>
+          <span class="time">{{item.createtime.slice(0,10)}}</span>
         </template>
         <div class="detail">
           {{item.content}}
@@ -24,37 +24,14 @@ export default {
   props: {
     blogList: {
       type: Array,
-      default: function() {
-        return this.initList;
+      default: function () {
+        return []
       }
     }
   },
-  data() {
+  data () {
     return {
       activeName: "1",
-      initList: [
-        {
-          name: "01",
-          title: "如何做一个美男子1",
-          time: "2019-12-30",
-          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-        },
-        {
-          name: "02",
-          title: "如何做一个美男子2",
-          time: "2019-12-30",
-          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-        },
-        {
-          name: "03",
-          title: "如何做一个美男子3",
-          time: "2019-12-30",
-          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-        }
-      ]
     };
   }
 };

@@ -11,11 +11,14 @@ export const login = (username, password) => service({
   },
 })
 
-export const getBlogList = (keyword = '') => service({
+export const getBlogList = ({ keyword = '', recommend = '', page_size = 10, page_count = 1 } = {}) => service({
   method: 'GET',
   url: '/api/blog/list',
   params: {
-    keyword
+    keyword,
+    recommend,
+    page_size,
+    page_count
   }
 })
 
@@ -27,21 +30,34 @@ export const getBlogDetail = (id) => service({
   }
 })
 
-export const createNewBlog = ({ title, content }) => service({
+export const createNewBlog = ({ title, content, recommend, classify }) => service({
   method: 'POST',
   url: '/api/blog/new',
   data: {
     title,
-    content
+    content,
+    recommend,
+    classify
   }
 })
 
-export const updateBlog = (id, { title, content }) => service({
+export const updateBlog = (id, { title, content, recommend, classify }) => service({
   method: 'POST',
   url: '/api/blog/update?id=' + id,
   data: {
     title,
-    content
+    content,
+    recommend,
+    classify
+  }
+})
+
+export const switchrecommend = (id, recommend) => service({
+  method: 'POST',
+  url: '/api/blog/switchRecommend',
+  data: {
+    id,
+    recommend
   }
 })
 
