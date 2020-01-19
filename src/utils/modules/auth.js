@@ -1,18 +1,16 @@
 import Cookies from 'js-cookie'
-import {
-  objEqual
-} from './common'
-const TokenKey = 'vue_admin_template_token'
+import { objEqual } from './common'
+const TokenKey = 'blog_token'
 
-export function getToken() {
+export function getToken () {
   return Cookies.get(TokenKey)
 }
 
-export function setToken(token) {
+export function setToken (token) {
   return Cookies.set(TokenKey, token)
 }
 
-export function removeToken() {
+export function removeToken () {
   return Cookies.remove(TokenKey)
 }
 /**

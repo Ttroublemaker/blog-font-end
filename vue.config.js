@@ -2,7 +2,7 @@
 
 const path = require('path')
 
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, dir)
 }
 const roles = {
@@ -11,6 +11,16 @@ const roles = {
 }
 
 module.exports = {
+  devServer: {
+    port: 8080,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        ws: true,
+        changeOrigin: true,
+      },
+    }
+  },
   configureWebpack: {
     // 设置别名
     resolve: {
@@ -23,7 +33,7 @@ module.exports = {
       before: function (app) { //直接用devserver这个服务
         // user login
         app.get('/user/login', (req, res) => {
-          const { username,password }=req.query
+          const { username, password } = req.query
           if (username == 'admin') {
             res.json({
               code: 20000,
@@ -34,7 +44,7 @@ module.exports = {
           } else {
             res.json({
               code: 50000,
-              message:"用户名或密码出错！"
+              message: "用户名或密码出错！"
             })
           }
 
@@ -44,7 +54,7 @@ module.exports = {
           res.json({
             code: 20000,
             data: {
-              roles: roles['admin-token'], //['admin'] or ['editor']
+              roles: ['admin-token'], //['admin'] or ['editor']
               introduction: "I am a super administrator",
               avatar: "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
               name: "Super Admin"
@@ -60,7 +70,7 @@ module.exports = {
       }
     }
   },
-  chainWebpack(config) {
+  chainWebpack (config) {
     // set svg-sprite-loader,特别注意要引入svg-sprite-loader插件
     config.module
       .rule('svg')

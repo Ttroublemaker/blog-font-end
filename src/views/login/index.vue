@@ -1,13 +1,7 @@
 <template>
   <div class="login-container">
     <div class="form-container">
-      <el-form
-        ref="loginForm"
-        :model="loginForm"
-        :rules="loginRules"
-        class="login-form"
-        label-position="left"
-      >
+      <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" label-position="left">
         <div class="title-container">
           <h3 class="title">用户登录</h3>
         </div>
@@ -16,63 +10,26 @@
           <span class="svg-container">
             <svg-icon icon-class="user" />
           </span>
-          <el-input
-            ref="username"
-            v-model="loginForm.username"
-            placeholder="用户名"
-            name="username"
-            type="text"
-            tabindex="1"
-          />
+          <el-input ref="username" v-model="loginForm.username" placeholder="用户名" name="username" type="text" tabindex="1" />
         </el-form-item>
 
         <el-form-item prop="password">
           <span class="svg-container">
             <svg-icon icon-class="password" />
           </span>
-          <el-input
-            :key="passwordType"
-            ref="password"
-            v-model="loginForm.password"
-            :type="passwordType"
-            placeholder="密码"
-            name="password"
-            tabindex="2"
-            @keyup.enter.native="handleLogin"
-          />
+          <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="密码" name="password" tabindex="2" @keyup.enter.native="handleLogin" />
           <!-- 点击切换密码是否显示 -->
           <span class="show-pwd" @click="showPwd">
             <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
           </span>
         </el-form-item>
 
-        <el-button
-          :loading="loading"
-          type="primary"
-          style="width:100%"
-          @click.native.prevent="handleLogin"
-        >登录</el-button>
+        <el-button :loading="loading" type="primary" style="width:100%" @click.native.prevent="handleLogin">登录</el-button>
       </el-form>
     </div>
     <!-- 画布特效 -->
     <div class="canvas-container">
-      <vue-particles
-        color="#dedede"
-        :particleOpacity="0.7"
-        :particlesNumber="80"
-        shapeType="polygon"
-        :particleSize="4"
-        linesColor="#fff"
-        :linesWidth="1"
-        :lineLinked="true"
-        :lineOpacity="0.4"
-        :linesDistance="150"
-        :moveSpeed="3"
-        :hoverEffect="true"
-        hoverMode="grab"
-        :clickEffect="true"
-        clickMode="push"
-      ></vue-particles>
+      <vue-particles color="#dedede" :particleOpacity="0.7" :particlesNumber="80" shapeType="polygon" :particleSize="4" linesColor="#fff" :linesWidth="1" :lineLinked="true" :lineOpacity="0.4" :linesDistance="150" :moveSpeed="3" :hoverEffect="true" hoverMode="grab" :clickEffect="true" clickMode="push"></vue-particles>
     </div>
   </div>
 </template>
@@ -80,7 +37,7 @@
 <script>
 export default {
   name: "Login",
-  data() {
+  data () {
     const validateUsername = (rule, value, callback) => {
       if (!value) {
         callback(new Error("请输入用户名！"))
@@ -89,16 +46,16 @@ export default {
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error("密码不能少于6位数！"))
+      if (value.length < 3) {
+        callback(new Error("密码不能少于3位数！"))
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        username: "admin",
-        password: "123456"
+        username: "",
+        password: ""
       },
       loginRules: {
         username: [
@@ -115,14 +72,14 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
     }
   },
   methods: {
-    showPwd() {
+    showPwd () {
       if (this.passwordType === "password") {
         this.passwordType = ""
       } else {
@@ -132,7 +89,7 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {
+    handleLogin () {
       this.$refs.loginForm.validate(valid => {
         // 如果校验通过，则提交用户名及密码
         if (valid) {

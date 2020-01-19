@@ -1,13 +1,20 @@
-import { $http } from  './axios'
-import axios from 'axios'
-export function login(data) {
-  return $http.get('/user/login',data)
-}
+import { service } from '@/utils/request'
 
-export function getInfo(token) {
-  return $http.post('/user/info',{token})
-}
+export const login = ({ username, password }) => service({
+  method: 'POST',
+  url: '/api/user/login',
+  data: {
+    username,
+    password
+  },
+})
 
-export function logout() {
-  return $http.post('/user/logout')
-}
+export const getInfo = () => service({
+  method: 'GET',
+  url: '/api/user/getInfo'
+})
+
+export const logout = () => service({
+  method: 'POST',
+  url: '/api/user/loginOut'
+})
