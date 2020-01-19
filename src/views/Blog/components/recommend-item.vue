@@ -7,10 +7,9 @@
       <div class="img">
         <img src="../../../assets/images/bg1.gif" alt />
       </div>
-      <div class="title">我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>
+      <div class="title">{{item.title}}</div>
       <div class="content">
-        我是内容自从入了这行，很多人跟我说可以做网络教程，我也有考虑，但最终没有实现，因为我觉得在这个教程泛滥的自从入了这行，很多人跟我说可以做网络教程，
-        我也有考虑，但最终没有实现，因为我觉得在这个教程泛滥的自从入了这行，很多人跟我说可以做网络教程，我也有考虑，但最终没有实现，因为我觉得在这个教程泛滥的
+        {{item.content}}
       </div>
       <div class="go-detail">
         <el-button type="text">
@@ -18,12 +17,12 @@
         </el-button>
       </div>
     </div>
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" background :small="isSmall" :current-page="currentPage" :page-sizes="[5, 10, 20, 40]" :page-size="4" :pager-count='5' :layout="page_Layout" :total="total"></el-pagination>
+    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" background :small="isSmall" :current-page="currentPage" :page-sizes="[5, 10, 20, 40]" :page-size="page_size" :pager-count='5' :layout="page_Layout" :total="total"></el-pagination>
   </div>
 </template>
 <script>
 import { getBlogList } from "../../../api/index.js";
-
+import { Loading } from 'element-ui';
 export default {
   data () {
     return {
@@ -32,11 +31,12 @@ export default {
       total: 0,
       isSmall: false,
       page_size: 4,
-      currentPage: 1
+      currentPage: 1,
+      loading: false
     }
   },
   created () {
-    this.getRecommendList()
+    this.initData()
   },
   computed: {
     // 移动端适配
@@ -48,26 +48,32 @@ export default {
         this.isSmall = true;
         return "prev, pager, next";
       }
+      
     }
   },
   methods: {
     // 获取推荐列表
-    getRecommendList () {
-      getBlogList({ page_size: this.page_size}).then(res => {
+    initData () {
+      let loadingInstance = Loading.service({ fullscreen: 'true', text: '拼命加载中', spinner: "el-icon-loading" })
+      let params = {
+        page_size: this.page_size, 
+        currentPage:this.currentPage,
+        recommend : 1
+      }
+      getBlogList(params).then(res => {
         this.recommendList = res.data.data.data
         this.total = res.data.data.pagination.total
+        loadingInstance.close()
       })
     },
     handleSizeChange (val) {
-      getBlogList({ page_size: val}).then(res => {
-        this.recommendList = res.data.data.data
-      })
+      this.page_size = val
+      this.initData()
     },
     handleCurrentChange (val) {
-      getBlogList({ page_size: this.page_size, page_count: val }).then(res => {
-        this.recommendList = res.data.data.data
-      })
-    }
+      this.currentPage = val
+      this.initData()
+    },
   }
 }
 </script>

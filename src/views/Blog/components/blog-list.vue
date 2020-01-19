@@ -3,17 +3,23 @@
     <header class="header">
       <i class="iconfont icon-liebiao2"></i>博客列表
     </header>
+    <section class='classify'>
+      <span class="label">分类</span>
+      <el-radio-group v-model="radio" @change='classifySwitch'>
+        <el-radio :label="item.value" v-for="(item,index) in classifyList" :key='index'>{{item.label}}</el-radio>
+      </el-radio-group>
+    </section>
     <section class="blog-items-container">
       <blogItem :blogList="blogList" v-if="blogList.length" />
       <span class="notice" v-else>暂无相关内容</span>
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" background :small="isSmall" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" :pager-count='5' :layout="page_Layout" :total="total"></el-pagination>
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" background :small="isSmall" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="page_size" :pager-count='5' :layout="page_Layout" :total="total"></el-pagination>
     </section>
   </div>
 </template>
 <script>
 import blogItem from "./blog-item";
-import { login, getBlogList, getBlogDetail, createNewBlog, updateBlog, switchrecommend, delBlog } from "../../../api/index.js";
-
+import { login, getBlogList, getBlogDetail, createNewBlog, updateBlog, switchrecommend, delBlog, artClassify } from "../../../api/index.js";
+import { Loading } from 'element-ui';
 export default {
   components: {
     blogItem
@@ -24,11 +30,15 @@ export default {
       isSmall: false,
       blogList: [],
       total: 0,
-      currentPage:1
+      currentPage: 1,
+      page_size:10,
+      radio: 1,
+      classifyList:[]
     };
   },
   created () {
     this.initData()
+    this.getArtClassifyList()
   },
   computed: {
     // 移动端适配
@@ -45,23 +55,34 @@ export default {
   methods: {
     // 获取初始数据
     initData () {
-      getBlogList().then(res => {
-        console.log(res.data.data.data)
+      let loadingInstance = Loading.service({ fullscreen: 'true', text: '拼命加载中', spinner: "el-icon-loading" })
+      let params = {
+        page_size: this.page_size, 
+        classify:this.radio,
+        currentPage:this.currentPage,
+      }
+      getBlogList(params).then(res => {
         this.blogList = res.data.data.data
         this.total = res.data.data.pagination.total
+        loadingInstance.close()
+      })
+    },
+    // 获取分类列表
+    getArtClassifyList(){
+      artClassify().then(res=>{
+        this.classifyList= res.data.data
       })
     },
     handleSizeChange (val) {
-      // console.log(`每页 ${val} 条`);
-      getBlogList({ page_size: val }).then(res => {
-        this.blogList = res.data.data.data
-      })
+      this.page_size = val
+      this.initData()
     },
     handleCurrentChange (val) {
-      // console.log(`当前页: ${val}`);
-      getBlogList({ page_count: val }).then(res => {
-        this.blogList = res.data.data.data
-      })
+      this.currentPage = val
+      this.initData()
+    },
+    classifySwitch(radio){
+      this.initData()
     }
   }
 };
@@ -74,6 +95,12 @@ export default {
     padding: 10px 0;
     font-weight: 600;
     border-bottom: 1px solid #ddd;
+  }
+  .classify {
+    padding: 10px 0;
+    .label {
+      margin-right: 20px;
+    }
   }
   .notice {
     display: inline-block;

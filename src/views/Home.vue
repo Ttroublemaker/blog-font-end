@@ -1,13 +1,11 @@
 <template>
   <div class="home-container">
-    <el-button @click.native="toLogin">登陆</el-button>
-    <el-button @click.native="toTest">校验登陆</el-button>
     <div class="scroll-container">
       <div class="home-title">Study,Share and Life</div>
       <div class="content-container">
         <div class="content-item">
           <span class="title">
-            <Icon iconClass="icon-bokeblogger3" class="icon" />My 博客
+            <Icon iconClass="icon-bokeblogger3" class="icon" @click.native='getartClassify' />My 博客
           </span>
           <span class="summary">每天坚持三件事，看脸、看秤、看余额。如果脸不够美，秤不够低，余额不够多。那么，请继续奋斗！</span>
           <router-link class="detail" to="/blog">查看详情</router-link>
@@ -18,7 +16,7 @@
 </template>
 
 <script>
-import { login, getBlogList, getBlogDetail, createNewBlog, updateBlog, switchrecommend, delBlog } from "../api/index.js";
+import { login, getBlogList, getBlogDetail, createNewBlog, updateBlog, switchrecommend, delBlog ,artClassify} from "../api/index.js";
 import Icon from "../components/icon";
 export default {
   components: {
@@ -28,16 +26,10 @@ export default {
     return {};
   },
   methods: {
-    toLogin () {
-      login('zhangsan', 123)
-      // createNewBlog({content:"new content", title:"new title", recommend:"new recommend", classify:"new classify"})
-      updateBlog(2,{ title:"update title", content:"update content", recommend:"update recommend", classify:"update classify" })
-      // switchrecommend(2, false)
-    },
-    toTest () {
-      delBlog(23);
+    getartClassify(){
+      artClassify()
     }
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>

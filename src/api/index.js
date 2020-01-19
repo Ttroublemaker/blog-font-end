@@ -11,14 +11,15 @@ export const login = (username, password) => service({
   },
 })
 
-export const getBlogList = ({ keyword = '', recommend = '', page_size = 10, page_count = 1 } = {}) => service({
+export const getBlogList = ({ keyword = '', recommend = '', classify = 1, page_size = 10, currentPage = 1 } = {}) => service({
   method: 'GET',
   url: '/api/blog/list',
   params: {
     keyword,
     recommend,
+    classify,
     page_size,
-    page_count
+    currentPage
   }
 })
 
@@ -64,4 +65,9 @@ export const switchrecommend = (id, recommend) => service({
 export const delBlog = (id) => service({
   method: 'POST',
   url: '/api/blog/del?id=' + id,
+})
+
+export const artClassify = () => service({
+  method: 'GET',
+  url: '/api/blog/artClassify'
 })

@@ -14,7 +14,7 @@
         <i class="iconfont icon-sousuo2"></i> 搜索结果
       </header>
       <blogItem :blogList="searchList" v-if="searchList.length" />
-      <el-pagination v-if="searchList.length" @size-change="handleSizeChange" @current-change="handleCurrentChange" background :small="isSmall" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" :pager-count='5' :layout="page_Layout" :total="total"></el-pagination>
+      <el-pagination v-if="searchList.length" @size-change="handleSizeChange" @current-change="handleCurrentChange" background :small="isSmall" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="page_size" :pager-count='5' :layout="page_Layout" :total="total"></el-pagination>
       <span v-else class="notice">对不起, 未搜索到相关内容</span>
     </div>
   </div>
@@ -22,6 +22,8 @@
 <script>
 import blogItem from "./blog-item";
 import { getBlogList } from "../../../api/index.js";
+import { Loading } from 'element-ui';
+
 export default {
   components: {
     blogItem
@@ -34,7 +36,8 @@ export default {
       searchList: [],
       searching: false,
       total: 0,
-      currentPage:1
+      currentPage: 1,
+      page_size: 10
     };
   },
   computed: {
@@ -62,23 +65,26 @@ export default {
       this.$emit('searching', false)
     },
     initData () {
-      getBlogList({ keyword: this.searchInput }).then(res => {
+      let loadingInstance = Loading.service({ fullscreen: 'true', text: '拼命加载中', spinner: "el-icon-loading" })
+      let params = {
+        keyword: this.searchInput,
+        page_size: this.page_size, 
+        currentPage:this.currentPage,
+      }
+      getBlogList(params).then(res => {
         this.searchList = res.data.data.data
         this.total = res.data.data.pagination.total
+        loadingInstance.close()
       })
     },
     handleSizeChange (val) {
-      getBlogList({ keyword: this.searchInput, page_size: val }).then(res => {
-        console.log('更新成功')
-        this.searchList = res.data.data.data
-      })
+      this.page_size = val
+      this.initData()
     },
     handleCurrentChange (val) {
-      getBlogList({ keyword: this.searchInput, page_count: val }).then(res => {
-        console.log('更新成功')
-        this.searchList = res.data.data.data
-      })
-    }
+      this.currentPage = val
+      this.initData()
+    },
   }
 };
 </script>
