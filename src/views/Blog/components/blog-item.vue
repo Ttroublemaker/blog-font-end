@@ -3,7 +3,7 @@
     <el-collapse v-model="activeName" accordion>
       <el-collapse-item v-for="(item,index) in blogList" :key="index" :name="item.name">
         <template slot="title">
-          <span class="index">{{index}}</span>
+          <span class="index">{{index+1}}</span>
           <span class="title">{{item.title}}</span>
           <span class="time">{{item.createtime.slice(0,10)}}</span>
         </template>

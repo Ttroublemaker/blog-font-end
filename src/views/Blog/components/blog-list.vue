@@ -6,11 +6,11 @@
     <section class='classify'>
       <span class="label">分类</span>
       <el-radio-group v-model="radio" @change='classifySwitch'>
-        <el-radio :label="item.value" v-for="(item,index) in classifyList" :key='index'>{{item.label}}</el-radio>
+        <el-radio :label="item" v-for="(item,index) in classifyList" :key='index'>{{item}}</el-radio>
       </el-radio-group>
     </section>
     <section class="blog-items-container">
-      <blogItem :blogList="blogList" v-if="blogList.length" />
+      <blogItem :blogList="blogList" v-if="blogList&&blogList.length" />
       <span class="notice" v-else>暂无相关内容</span>
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" background :small="isSmall" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="page_size" :pager-count='5' :layout="page_Layout" :total="total"></el-pagination>
     </section>
@@ -32,7 +32,7 @@ export default {
       total: 0,
       currentPage: 1,
       page_size:10,
-      radio: 1,
+      radio: '全部',
       classifyList:[]
     };
   },
@@ -70,7 +70,7 @@ export default {
     // 获取分类列表
     getArtClassifyList(){
       artClassify().then(res=>{
-        this.classifyList= res.data.data
+        this.classifyList= ['全部',...res.data.data]
       })
     },
     handleSizeChange (val) {
@@ -99,7 +99,10 @@ export default {
   .classify {
     padding: 10px 0;
     .label {
-      margin-right: 20px;
+      margin-right: 15px;
+    }
+    .el-radio{
+      margin:5px 10px 5px 0;
     }
   }
   .notice {

@@ -11,7 +11,7 @@ export const login = (username, password) => service({
   },
 })
 
-export const getBlogList = ({ keyword = '', recommend = '', classify = 1, page_size = 10, currentPage = 1 } = {}) => service({
+export const getBlogList = ({ keyword = '', recommend = '', classify = '全部', page_size = 10, currentPage = 1 } = {}) => service({
   method: 'GET',
   url: '/api/blog/list',
   params: {

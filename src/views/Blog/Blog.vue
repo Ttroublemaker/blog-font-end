@@ -6,7 +6,7 @@
     <el-button size="small" type="primary" @click="download" style="margin:10px 0">点击下载</el-button>
     <el-button size="small" type="primary" @click="del">点击删除</el-button> -->
     <div class="search-list">
-      <searchResult @searching=closeSearch />
+      <searchResult @searching="closeSearch" />
     </div>
     <div class="blog-list" v-if="!searching">
       <blogList />
@@ -84,7 +84,7 @@ export default {
   .search-list {
     border: 1px solid transparent;
     padding: 0;
-    margin-bottom: 0;
+    margin-bottom: 20px;
   }
   .blog-list-timeline {
     position: absolute;

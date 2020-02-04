@@ -91,7 +91,7 @@ export default {
   }
   .item {
     width: 45%;
-    margin: 20px 0;
+    margin-top: 20px;
     display: flex;
     border-radius: 4px;
     overflow: hidden;
@@ -105,7 +105,7 @@ export default {
     .img {
       width: 100%;
       height: 0; // 设置高为0，让padding撑起高
-      padding-bottom: 60%; /* 让div的高等于宽的0.618黄金比 */
+      padding-bottom: 40%; 
       overflow: hidden;
       img {
         width: 100%;
