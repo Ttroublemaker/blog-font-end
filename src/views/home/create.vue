@@ -6,54 +6,57 @@
     <div class="blog-edit-add">
       <h4 class="title">{{blogType}}</h4>
       <div class="item">
+        <span class="label">博客标题：</span>
+        <el-input v-model="title" placeholder="请输入内容"></el-input>
+      </div>
+      <div class="item">
         <span class="label">博客类型：</span>
         <el-select v-model="value" clearable placeholder="请选择Blog类型">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in classifyList"
+            :key="item"
+            :label="item"
+            :value="item"
           ></el-option>
         </el-select>
       </div>
       <div class="item">
         <span class="label">是否推荐：</span>
-        <el-switch v-model="switch_value" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+        <el-switch v-model="switch_value" active-color="#13ce66" inactive-color="#ff4949" :active-value="1"
+          :inactive-value="0"></el-switch>
       </div>
-      <mavon-editor v-model="markdownValue" @save="handleOnSave" />
+       <div class="item">
+        <span class="label">文章说明：</span>
+         <el-input
+          type="textarea"
+          :rows="2"
+          placeholder="请输入内容"
+          v-model="subtitle">
+        </el-input>
+      </div>
+      <mavon-editor v-model="markdownValue" ref=md @imgAdd="handleEditorImgAdd"  @save="handleOnSave" />
       <el-button type="primary" class="save" @click.native="handleOnSave">保存</el-button>
-      <!-- <el-button type="primary" class="save" @click.native="handle">test</el-button> -->
     </div>
   </div>
 </template>
 <script>
+import { getBlogDetail, createNewBlog, updateBlog, artClassify } from "../../api/index.js";
+import axios from 'axios'
+
 export default {
   data() {
     return {
+      title:"",
       markdownValue: "", //markdown编辑器内容
-      uploadFile: "",
-      temp: "",
-      options: [
-        {
-          value: "html",
-          label: "  HTML"
-        },
-        {
-          value: "css",
-          label: "CSS"
-        },
-        {
-          value: "js",
-          label: "JavaScript"
-        },
-        {
-          value: "other",
-          label: "Other"
-        }
-      ],
+      subtitle: '',
+      classifyList: [],
       value: "",
       switch_value: ""
     };
+  },
+  created() {
+    this.getArtClassifyList()
+    this.initData()
   },
   computed: {
     blogType() {
@@ -69,13 +72,87 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
-    handleOnSave() {
-      console.log(this.markdownValue);
-      this.temp = this.markdownValue;
+    initData(){
+      if(this.blogType!=='更新博客') return
+      let id = this.$route.query.id;
+      getBlogDetail(id).then(res=>{
+        this.markdownValue = res.data.content
+        this.value = res.data.classify
+        this.switch_value = res.data.recommend
+        this.title = res.data.title
+        this.subtitle = res.data.subtitle
+      })
     },
-    handle() {
-      this.markdownValue = this.temp;
-    }
+    // 保存文章
+    handleOnSave() {
+      if(!this.title){
+        this.$message.error('标题不能为空')
+        return
+      }
+      if(!this.value){
+        this.$message.error('请选择文章类型')
+        return
+      }
+      if(!this.subtitle){
+        this.$message.error('文章说明不能为空')
+        return
+      }
+      if(this.blogType==='新增博客'){
+        createNewBlog({ 
+          title:this.title, content:this.markdownValue, recommend:this.switch_value, classify:this.value, subtitle:this.subtitle
+          }).then(res => {
+          this.$message.success('新建成功')
+        })
+      } else if(this.blogType==='更新博客'){
+        let id = this.$route.query.id;
+        updateBlog(id,{ 
+          title:this.title, content:this.markdownValue, recommend:this.switch_value, classify:this.value , subtitle:this.subtitle
+          }).then(res => {
+          this.$message.success('更新成功')
+        })
+      }
+    },
+    // 文件上传
+    handleEditorImgAdd (pos, $file) {
+      let formdata = new FormData()
+      formdata.append('file', $file)
+      let instance = axios.create({
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      instance.post('http://localhost:3000/file/uploadFile/multiple', formdata).then(res => {
+        if (res.data.errno === 0) {
+          this.$message.success('上传成功')
+          let url = res.data.data.file[0]
+          let name = $file.name
+          if (name.includes('-')) {
+              name = name.replace(/-/g, '')
+          }
+          let content = this.markdownValue
+          // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)  这里是必须要有的
+          if (content.includes(name)) {
+            let oStr = `(${pos})` // 第几个图片
+            let nStr = `(http://localhost:3000/${url.destination}${url.filename})`
+            let index = content.indexOf(oStr)
+            console.log('index',index)
+            let str = content.replace(oStr, '')
+            let insertStr = (soure, start, newStr) => {
+              return soure.slice(0, start) + newStr + soure.slice(start)
+            }
+            console.log('old',this.markdownValue)
+            this.markdownValue = insertStr(str, index, nStr)
+            console.log('new',this.markdownValue)
+          }
+        } else {
+          this.$message.error(res.data.message)
+        }
+      })
+    },
+    // 获取分类列表
+    getArtClassifyList(){
+      artClassify().then(res=>{
+        this.classifyList= res.data
+      })
+    },
   }
 };
 </script>
@@ -102,16 +179,18 @@ export default {
     }
     .item {
       margin-bottom: 20px;
-      width: 360px;
       box-sizing: border-box;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
       .label {
         display: inline-block;
-        width: 100px;
+        width: 90px;
         text-align: left;
         margin-right: 10px;
+      }
+      /deep/.el-input{
+        width:200px;
+      }
+      .el-textarea {
+        width: 300px;
       }
     }
     .save {

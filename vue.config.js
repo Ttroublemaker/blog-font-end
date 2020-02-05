@@ -12,7 +12,7 @@ const roles = {
 
 module.exports = {
   devServer: {
-    port: 8080,
+    // port: 8080,
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
@@ -28,47 +28,6 @@ module.exports = {
         '@': resolve('src')
       }
     },
-    // Mock Server简单的说就是起一个服务器，服务器提供接口产生相应的mock数据
-    devServer: {
-      before: function (app) { //直接用devserver这个服务
-        // user login
-        app.get('/user/login', (req, res) => {
-          const { username, password } = req.query
-          if (username == 'admin') {
-            res.json({
-              code: 20000,
-              data: {
-                token: Math.random() > 0.5 ? 'admin-token' : 'editor-token'
-              }
-            })
-          } else {
-            res.json({
-              code: 50000,
-              message: "用户名或密码出错！"
-            })
-          }
-
-        })
-        // getInfo
-        app.post('/user/info', (req, res) => {
-          res.json({
-            code: 20000,
-            data: {
-              roles: ['admin-token'], //['admin'] or ['editor']
-              introduction: "I am a super administrator",
-              avatar: "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
-              name: "Super Admin"
-            }
-          })
-        })
-        app.post('/user/logout', (req, res) => {
-          res.json({
-            code: 20000,
-            data: 'success'
-          })
-        })
-      }
-    }
   },
   chainWebpack (config) {
     // set svg-sprite-loader,特别注意要引入svg-sprite-loader插件

@@ -3,17 +3,17 @@
     <el-collapse v-model="activeName" accordion>
       <el-collapse-item v-for="(item,index) in blogList" :key="index" :name="item.name">
         <template slot="title">
-          <span class="index">{{item.name}}</span>
+          <span class="index">{{index+1}}</span>
           <span class="title">{{item.title}}</span>
-          <span class="time">{{item.time}}</span>
+          <span class="time">{{item.createtime.slice(0,10)}}</span>
         </template>
         <div class="detail">
-          {{item.content}}
+          {{item.subtitle}}
           <br />
           <span class="handle">
-            <el-button type="text" @click="goToDetail(item.id||2)">阅读全文</el-button>
-            <el-button type="text" @click.native="toAdd_edit('edit',id=0)">更新</el-button>
-            <el-button type="text" style="color:#F56C6C">删除</el-button>
+            <el-button type="text" @click="goToDetail(item.id)">阅读全文</el-button>
+            <el-button type="text" @click.native="toAdd_edit('edit',id=item.id)">更新</el-button>
+            <el-button type="text" @click.native="del(item.id)"style="color:#F56C6C">删除</el-button>
           </span>
         </div>
       </el-collapse-item>
@@ -21,42 +21,22 @@
   </div>
 </template>
 <script>
+import { delBlog } from "../../../api/index.js";
+
 export default {
   name: "blogItem",
   props: {
     blogList: {
       type: Array,
       default: function() {
-        return this.initList;
+        return []
       }
     }
   },
   data() {
     return {
       activeName: "1",
-      initList: [
-        {
-          name: "01",
-          title: "如何做一个美男子1",
-          time: "2019-12-30",
-          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-        },
-        {
-          name: "02",
-          title: "如何做一个美男子2",
-          time: "2019-12-30",
-          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-        },
-        {
-          name: "03",
-          title: "如何做一个美男子3",
-          time: "2019-12-30",
-          content: `简化流程：设计简洁直观的操作流程；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：
-          根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；`
-        }
-      ]
+      initList: []
     };
   },
   methods: {
@@ -65,6 +45,18 @@ export default {
     },
     goToDetail(id) {
       this.$router.push({ path: "/article-detail", query: { id } });
+    },
+    del(id){
+      this.$confirm('是否删除该文章?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(()=>{
+          delBlog(id).then(res=>{
+            this.$message.success('删除成功')
+            this.$emit('update')
+          })
+        })
     }
   }
 };

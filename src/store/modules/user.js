@@ -46,19 +46,19 @@ const actions = {
     return new Promise((resolve, reject) => {
       getInfo().then(response => {
         const { data } = response
-
+        console.log(data)
         if (!data) {
           reject('认证错误，请重新登录！')
         }
 
-        const { roles, name, avatar } = data
+        const { roles, realname, avatar } = data
 
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles不能为空！')
         }
 
         commit('SET_ROLES', roles)
-        commit('SET_NAME', name)
+        commit('SET_NAME', realname)
         commit('SET_AVATAR', avatar)
         resolve(data)
       }).catch(error => {

@@ -9,7 +9,7 @@ export const login = (username, password) => service({
   },
 })
 
-export const getBlogList = ({ keyword = '', recommend = '', classify = 1, page_size = 10, currentPage = 1 } = {}) => service({
+export const getBlogList = ({ keyword = '', recommend = '', classify = '全部', page_size = 10, currentPage = 1 } = {}) => service({
   method: 'GET',
   url: '/api/blog/list',
   params: {
@@ -29,25 +29,26 @@ export const getBlogDetail = (id) => service({
   }
 })
 
-export const createNewBlog = ({ title, content, recommend, classify }) => service({
+export const createNewBlog = ({ title, content, recommend, classify, subtitle }) => service({
   method: 'POST',
   url: '/api/blog/new',
   data: {
     title,
     content,
     recommend,
-    classify
+    classify,
+    subtitle
   }
 })
 
-export const updateBlog = (id, { title, content, recommend, classify }) => service({
+export const updateBlog = (id, { title, content, recommend, classify, subtitle }) => service({
   method: 'POST',
   url: '/api/blog/update?id=' + id,
   data: {
     title,
     content,
     recommend,
-    classify
+    classify, subtitle
   }
 })
 
