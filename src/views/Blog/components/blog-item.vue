@@ -8,10 +8,10 @@
           <span class="time">{{item.createtime.slice(0,10)}}</span>
         </template>
         <div class="detail">
-          {{item.content}}
+          {{item.subtitle}}
           <br />
           <span class="handle">
-            <el-button type="text">阅读全文</el-button>
+            <el-button type="text" @click.native='toDetail(item.id)'>阅读全文</el-button>
           </span>
         </div>
       </el-collapse-item>
@@ -33,7 +33,12 @@ export default {
     return {
       activeName: "1",
     };
-  }
+  },
+  methods: {
+    toDetail(id){
+      this.$router.push({path:'/blog-detail',query:{id}})
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>

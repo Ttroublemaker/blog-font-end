@@ -108,10 +108,10 @@ export default {
       position: absolute;
       background-color: #fff;
       border-radius: 50%;
-      right: -10px;
-      top: -16px;
+      right: 20px;
+      top: 25px;
       i {
-        font-size: 24px;
+        font-size: 20px;
       }
     }
     .header {

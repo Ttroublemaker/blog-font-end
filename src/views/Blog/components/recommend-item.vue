@@ -9,10 +9,10 @@
       </div>
       <div class="title">{{item.title}}</div>
       <div class="content">
-        {{item.content}}
+        {{item.subtitle}}
       </div>
       <div class="go-detail">
-        <el-button type="text">
+        <el-button type="text" @click.native='toDetail(item.id)'>
           <i class="iconfont icon-yuedu"></i> 阅读文章
         </el-button>
       </div>
@@ -74,6 +74,9 @@ export default {
       this.currentPage = val
       this.initData()
     },
+    toDetail(id){
+      this.$router.push({path:'/blog-detail',query:{id}})
+    }
   }
 }
 </script>
@@ -83,7 +86,6 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   .header {
-    margin-bottom: 10px;
     padding: 10px 0;
     font-weight: 600;
     border-bottom: 1px solid #ddd;
@@ -145,7 +147,7 @@ export default {
 @media screen and (max-width: 900px) {
   .container {
     .item {
-      width: 90% !important;
+      width: 100% !important;
     }
   }
 }

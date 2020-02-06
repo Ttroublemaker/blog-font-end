@@ -98,8 +98,17 @@ export default {
   }
   .classify {
     padding: 10px 0;
+    display: flex;
     .label {
       margin-right: 15px;
+      line-height: 26px;
+    }
+    .el-radio-group{
+      overflow: scroll;
+      display: flex;
+      &::-webkit-scrollbar{
+        display:none
+      }
     }
     .el-radio{
       margin:5px 10px 5px 0;

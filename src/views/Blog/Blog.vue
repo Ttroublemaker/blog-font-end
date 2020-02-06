@@ -8,10 +8,11 @@
     <div class="search-list">
       <searchResult @searching="closeSearch" />
     </div>
-    <div class="blog-list" v-if="!searching">
+    <el-switch class='switch' v-model="listValue"  v-if="!searching" active-text="推荐列表" inactive-text="博客列表" @change='switchList' ></el-switch>
+    <div class="blog-list" v-if="!searching&&!listValue">
       <blogList />
     </div>
-    <div class="recommend-list" v-if="!searching">
+    <div class="recommend-list" v-if="!searching&&listValue">
       <recommendItem />
     </div>
     <!-- <div class="blog-list-timeline" v-if="!searching">
@@ -38,6 +39,7 @@ export default {
     return {
       screenWidth: document.body.clientWidth, //获取body宽度
       searching: false,
+      listValue: false
     };
   },
   methods: {
@@ -60,6 +62,9 @@ export default {
     },
     del () {
 
+    },
+    switchList(val){
+      console.log(val)
     }
   }
 };
@@ -70,6 +75,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow-y: scroll;
   .search-list,
   .blog-list,
   .recommend-list {
@@ -91,6 +97,10 @@ export default {
     text-align: left;
     right: 0;
     width: 30%;
+  }
+  .switch{
+    margin-top: -20px;
+    margin-bottom: 10px;
   }
 }
 @media screen and (max-width: 1200px) {
