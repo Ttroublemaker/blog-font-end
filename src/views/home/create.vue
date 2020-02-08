@@ -120,7 +120,7 @@ export default {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       // instance.post('http://localhost:3000/file/uploadFile/multiple', formdata).then(res => {
-      instance.post('http://localhost:3000/api/file/uploadFile/multiple', formdata).then(res => {
+      instance.post('http://120.78.165.228/api/file/uploadFile/multiple', formdata).then(res => {
         if (res.data.errno === 0) {
           this.$message.success('上传成功')
           let url = res.data.data.file[0]
@@ -132,7 +132,7 @@ export default {
           // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)  这里是必须要有的
           if (content.includes(name)) {
             let oStr = `(${pos})` // 第几个图片
-            let nStr = `(http://localhost:3000/api/${url.destination}${url.filename})`
+            let nStr = `(http://120.78.165.228/api/${url.destination}${url.filename})`
             let index = content.indexOf(oStr)
             console.log('index',index)
             let str = content.replace(oStr, '')
