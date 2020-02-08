@@ -78,15 +78,15 @@ export default {
   header.title{
     display: flex;
     justify-content: center;
-    margin: 20px 0;
-    font-size: 36px;
+    margin: 10px 0;
+    font-size: 32px;
     font-weight: 600;
   }
   .subtitle{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin: 20px 0;
+    margin: 10px 0;
     span{
       display: inline-flex;
       margin: 10px 0;
@@ -102,7 +102,7 @@ export default {
     text-align: center;
   }
   .markdown-body {
-    margin-top: 40px;
+    margin-top: 20px;
   }
 }
 </style>
