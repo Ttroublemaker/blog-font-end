@@ -10,7 +10,7 @@
     </div>
     <el-switch class='switch' v-model="listValue"  v-if="!searching" active-text="推荐列表" inactive-text="博客列表" @change='switchList' ></el-switch>
     <div class="blog-list" v-if="!searching&&!listValue">
-      <blogList />
+      <blogList :classify='classify'/>
     </div>
     <div class="recommend-list" v-if="!searching&&listValue">
       <recommendItem />
@@ -41,6 +41,11 @@ export default {
       searching: false,
       listValue: false
     };
+  },
+  computed:{
+    classify(){
+      return this.$route.query.classify
+    }
   },
   methods: {
     closeSearch (val) {

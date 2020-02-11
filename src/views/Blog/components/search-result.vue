@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <div class="seacrh-title">
-      <el-input placeholder="按关键字搜索blog" v-model="searchInput" @keyup.enter.native="search" width='200px'>
-        <i slot="suffix" class="el-input__icon el-icon-search"></i>
-      </el-input>
+      <el-input placeholder="按关键字搜索blog" v-model="searchInput" clearable @keyup.enter.native="search" width='200px' />
       <el-button type="primary" icon="el-icon-search" @click.native="search">搜索</el-button>
     </div>
     <div class="search-list" v-if="searching">

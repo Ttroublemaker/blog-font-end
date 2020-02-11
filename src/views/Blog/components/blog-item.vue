@@ -62,6 +62,9 @@ export default {
     }
     .time {
       position: absolute;
+      display:inline-block;
+      height: 48px;
+      line-height: 48px;
       right: 30px;
     }
     &.is-active {

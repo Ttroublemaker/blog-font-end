@@ -24,6 +24,12 @@ export default {
   components: {
     blogItem
   },
+  props:{
+    classify:{
+      type:String,
+      default:'全部'
+    }
+  },
   data () {
     return {
       screenWidth: document.body.clientWidth, //获取body宽度
@@ -37,6 +43,7 @@ export default {
     };
   },
   created () {
+    this.radio = this.classify
     this.initData()
     this.getArtClassifyList()
   },
@@ -100,10 +107,11 @@ export default {
     padding: 10px 0;
     display: flex;
     .label {
-      margin-right: 15px;
+      margin-right: 5px;
       line-height: 26px;
     }
     .el-radio-group{
+      margin-left: 10px;
       overflow: scroll;
       display: flex;
       &::-webkit-scrollbar{
