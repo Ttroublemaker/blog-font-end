@@ -24,15 +24,13 @@
 </template>
 
 <script>
-import { login, getBlogList, getBlogDetail, createNewBlog, updateBlog, switchrecommend, delBlog, artClassify } from "../../api/index.js";
-import Icon from "../../components/icon";
+// import { artClassify } from "../../api/index.js";
 export default {
   components: {
     Icon
   },
   data () {
     return {
-      screenWidth: document.body.clientWidth, //获取body宽度
       hostList:[
         [
           {title:'全部',icon:'./images/all.jpg', classify:'全部'},
@@ -47,11 +45,6 @@ export default {
         ]
       ]
     };
-  },
-  methods: {
-    getartClassify () {
-      artClassify()
-    }
   },
 };
 </script>
