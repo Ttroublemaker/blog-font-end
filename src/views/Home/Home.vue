@@ -26,9 +26,6 @@
 <script>
 // import { artClassify } from "../../api/index.js";
 export default {
-  components: {
-    Icon
-  },
   data () {
     return {
       hostList:[
