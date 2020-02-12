@@ -9,8 +9,11 @@ Vue.use(ElementUI);
 import 'normalize.css/normalize.css' //样式初始化
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-// use
 Vue.use(mavonEditor)
+
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+Vue.use(VueAwesomeSwiper)
 
 new Vue({
   router,

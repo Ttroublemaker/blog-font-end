@@ -1,40 +1,86 @@
 <template>
   <div class="personal">
-    <div class="name-card">
-      <nameCard />
-    </div>
-    <div class="curriculum-vitae">
-      <div class="curriculum-vitae-title">个人履历</div>
-      <timeline />
-    </div>
+    <!-- swiper -->
+    <swiper :options="swiperOptionv" class="swiper-container">
+      <swiper-slide>
+        <perInfo />
+      </swiper-slide>
+      <swiper-slide>
+        <education />
+      </swiper-slide>
+      <swiper-slide>
+        <swiper :options="swiperOptionh">
+          <swiper-slide>
+            <project1 />
+          </swiper-slide>
+          <swiper-slide>
+            <project2 />
+          </swiper-slide>
+          <swiper-slide>
+            <project3 />
+          </swiper-slide>
+          <div class="swiper-pagination swiper-pagination-h" slot="pagination"></div>
+        </swiper>
+      </swiper-slide>
+      <swiper-slide>
+        <skills />
+      </swiper-slide>
+      <div class="swiper-pagination swiper-pagination-v" slot="pagination"></div>
+    </swiper>
   </div>
 </template>
 
 <script>
-import timeline from "./components/timeline";
-import nameCard from "./components/name-card";
+import perInfo from "./components/per-info";
+import education from "./components/education"
+import skills from "./components/skills"
+import project1 from "./components/projects/project1"
+import project2 from "./components/projects/project2"
+import project3 from "./components/projects/project3"
 export default {
   components: {
-    timeline,
-    nameCard
+    perInfo,
+    education,
+    skills,
+    project1,
+    project2,
+    project3,
+  },
+  data () {
+    return {
+      swiperOptionh: {
+        spaceBetween: 50,
+        pagination: {
+          el: '.swiper-pagination-h',
+          clickable: true
+        }
+      },
+      swiperOptionv: {
+        direction: 'vertical',
+        spaceBetween: 50,
+        pagination: {
+          el: '.swiper-pagination-v',
+          clickable: true
+        }
+      }
+    }
   }
 };
 </script>
-<style lang="scss" scoped>
-.curriculum-vitae {
-  text-align: left;
-  width: 60%;
-  .curriculum-vitae-title {
-    margin: 40px 0 20px 0;
-    text-align: left;
-    font-size: 20px;
-    font-weight: 600;
+<style lang="scss">
+$HEIGHT: 81px;
+// // 切记留出空格,否则不起作用
+.personal {
+  height: calc(100vh - #{$HEIGHT} - 30px);
+  .swiper-container {
+    height: 100%;
   }
-}
-@media screen and (max-width: 700px) {
-  .curriculum-vitae {
-    text-align: left;
-    width: 100%;
+  .swiper-slide-active {
+    .container {
+      .item {
+        opacity: 1 !important;
+      }
+    }
   }
 }
 </style>

@@ -1,9 +1,15 @@
 <template>
   <div class="home-container" ref='container'>
     <div class="carousel">
-      <el-carousel trigger="click" height="200px">
-        <el-carousel-item v-for="item in 4" :key="item">
-          <img class="icon" src="./images/h5.png" alt="">
+      <el-carousel trigger="click" :height="carouselHeight">
+        <el-carousel-item>
+          <img class="icon" src="./images/web-logo1.png" alt="">
+        </el-carousel-item>
+        <el-carousel-item>
+          <img class="icon" src="./images/web-logo2.jpg" alt="">
+        </el-carousel-item>
+        <el-carousel-item>
+          <img class="icon" src="./images/web-logo3.jpg" alt="">
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -24,24 +30,33 @@
 </template>
 
 <script>
-// import { artClassify } from "../../api/index.js";
 export default {
   data () {
     return {
-      hostList:[
+      screenWidth: document.body.clientWidth, //获取body宽度
+      hostList: [
         [
-          {title:'全部',icon:'./images/all.jpg', classify:'全部'},
-          {title:'JS',icon:'./images/js.png',classify:'js'},
-          {title:'CSS',icon:'./images/css.png', classify:'css'}
+          { title: '全部', icon: './images/all.jpg', classify: '全部' },
+          { title: 'JS', icon: './images/js.png', classify: 'js' },
+          { title: 'CSS', icon: './images/css.png', classify: 'css' }
         ],
         [
-          {title:'HTML',icon:'./images/html.png', classify:'html'},
-          // {title:'typeScript',icon:'./images/typescript.png', classify:'typescript'}
-          {title:'VUE',icon:'./images/vue.png', classify:'vue'},
-          {title:'Node',icon:'./images/nodejs.png', classify:'node'},
+          { title: 'HTML', icon: './images/html.png', classify: 'html' },
+          { title: 'VUE', icon: './images/vue.png', classify: 'vue' },
+          { title: 'Node', icon: './images/nodejs.png', classify: 'node' },
         ]
       ]
     };
+  },
+  computed: {
+    // 移动端适配
+    carouselHeight () {
+      if (this.screenWidth > 800) {
+        return "300px";
+      } else {
+        return "200px";
+      }
+    }
   },
 };
 </script>
@@ -61,7 +76,7 @@ export default {
   }
   .content-container {
     margin: 15px 0;
-    .title{
+    .title {
       display: inline-block;
       width: 100%;
       font-weight: bold;
@@ -79,7 +94,7 @@ export default {
       border-collapse: collapse;
       td {
         border: 1px solid #ddd;
-        a{
+        a {
           display: inline-block;
           width: 100%;
           height: 100%;
@@ -89,7 +104,7 @@ export default {
         }
         .icon {
           width: 100%;
-          border-radius: 2px;
+          border-radius: 5px;
         }
         &.list-item:hover {
           cursor: pointer !important;

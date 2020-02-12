@@ -107,11 +107,12 @@ export default {
     padding: 10px 0;
     display: flex;
     .label {
-      margin-right: 5px;
+      display: inline-block;
+      width: 50px;
       line-height: 26px;
     }
     .el-radio-group{
-      margin-left: 10px;
+      padding-left: 10px;
       overflow: scroll;
       display: flex;
       &::-webkit-scrollbar{
