@@ -15,9 +15,6 @@
     <div class="recommend-list" v-if="!searching&&listValue">
       <recommendItem />
     </div>
-    <!-- <div class="blog-list-timeline" v-if="!searching">
-      <blogListTimeline />
-    </div> -->
   </div>
 </template>
 
@@ -25,27 +22,28 @@
 import blogList from "./components/blog-list";
 import recommendItem from "./components/recommend-item";
 import searchResult from "./components/search-result";
-import blogListTimeline from "./components/blog-list-timeline";
 
 const fs = require('fs')
 export default {
   components: {
     recommendItem,
     searchResult,
-    blogList,
-    blogListTimeline
+    blogList
   },
   data () {
     return {
       screenWidth: document.body.clientWidth, //获取body宽度
       searching: false,
-      listValue: false
+      listValue: true
     };
   },
   computed:{
     classify(){
       return this.$route.query.classify
     }
+  },
+  created(){
+    this.listValue = this.$route.query.listType==='recommend'?true:false
   },
   methods: {
     closeSearch (val) {

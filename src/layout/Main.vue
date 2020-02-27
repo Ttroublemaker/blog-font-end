@@ -20,6 +20,7 @@ export default {
   margin: 0 15%;
   min-height: 400px;
   .el-backtop {
+    z-index: 9999;
     i {
       font-size: 32px;
     }

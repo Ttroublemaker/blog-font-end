@@ -17,8 +17,8 @@ Vue.use(VueAwesomeSwiper)
 
 import VueLazyLoad from 'vue-lazyload'
 Vue.use(VueLazyLoad, {
-  error: '../public/images/error.PNG',
-  loading: '../public/images/loadding.jpg'
+  error: '../public/images/error.png',
+  loading: '../public/images/loadding.png'
 })
 
 new Vue({

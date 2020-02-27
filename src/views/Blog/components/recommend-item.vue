@@ -75,7 +75,7 @@ export default {
       this.initData()
     },
     toDetail (id) {
-      this.$router.push({ path: '/blog-detail', query: { id } })
+      this.$router.push({ path: '/blog-detail', query: { id,'listType':'recommend' } })
     }
   }
 }

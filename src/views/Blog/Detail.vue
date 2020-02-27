@@ -5,8 +5,8 @@
     </span>
     <header class='title'>{{title}}</header>
     <div class='subtitle'>
-      <span>作者：{{author}}</span>
-      <span v-if="size==='large'">创建时间：{{createtime}}</span>
+      <span>{{author}}</span>
+      <span>{{createtime}}</span>
       <span v-if="size==='large'">分类：{{classify}}</span>
       <span v-if="size==='large'">特别推荐：{{recommend=='0'?'否':'是'}}</span>
       <span v-if="size==='large'">更新时间：{{updatetime}}</span>
@@ -34,7 +34,8 @@ export default {
       classify: '',
       recommend: '',
       updatetime: '',
-      introduction: ''
+      introduction: '',
+      listType: 'list' // list 是显示列表，recommend显示是推荐
     };
   },
   computed: {
@@ -49,7 +50,7 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.go(-1);
+      this.$router.push({path:'/blog',query:{listType:this.listType}})
     },
     getArticleDetail() {
       let id = this.$route.query.id;
@@ -68,6 +69,7 @@ export default {
   },
   created() {
     this.getArticleDetail();
+    this.listType = this.$route.query.listType
   }
 };
 </script>
@@ -96,7 +98,6 @@ export default {
     margin: 10px 0;
     span{
       display: inline-flex;
-      margin: 10px 0;
       padding: 0 10px;
       border-right: 1px solid #ccc;
       &:last-child{
