@@ -15,10 +15,13 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper)
 
-import VueLazyLoad from 'vue-lazyload'
-Vue.use(VueLazyLoad, {
-  error: '../public/images/error.png',
-  loading: '../public/images/loadding.png'
+import VueLazyload from 'vue-lazyload'
+
+Vue.use(VueLazyload, {
+  preLoad: 1,
+  error: require('../public/images/error.png'),
+  loading: require('../public/images/loadding.png'),
+  attempt: 1
 })
 
 new Vue({

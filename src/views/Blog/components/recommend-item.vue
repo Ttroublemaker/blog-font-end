@@ -5,7 +5,7 @@
     </header>
     <div class="item" v-for="(item,index) in recommendList" :key="index">
       <div class="img">
-        <img src="../../../../public/images/all.jpg" />
+        <img v-lazy="item.recImg||'./images/all.png'" />
       </div>
       <div class="title">{{item.title}}</div>
       <div class="content">
@@ -75,7 +75,7 @@ export default {
       this.initData()
     },
     toDetail (id) {
-      this.$router.push({ path: '/blog-detail', query: { id,'listType':'recommend' } })
+      this.$router.push({ path: '/blog-detail', query: { id, 'listType': 'recommend' } })
     }
   }
 }

@@ -2,7 +2,10 @@
   <div class="home-container" ref='container'>
     <div class="carousel">
       <el-carousel trigger="click" :height="carouselHeight">
-        <el-carousel-item>
+        <el-carousel-item v-for="(item,index) in carouselList" :key="index">
+          <img class="icon" v-lazy="item.img" :key="index" alt="">
+        </el-carousel-item>
+        <!-- <el-carousel-item>
           <img class="icon" src="./images/web-logo1.png" alt="">
         </el-carousel-item>
         <el-carousel-item>
@@ -10,7 +13,7 @@
         </el-carousel-item>
         <el-carousel-item>
           <img class="icon" src="./images/web-logo3.jpg" alt="">
-        </el-carousel-item>
+        </el-carousel-item> -->
       </el-carousel>
     </div>
     <div class="content-container">
@@ -34,6 +37,11 @@ export default {
   data () {
     return {
       screenWidth: document.body.clientWidth, //获取body宽度
+      carouselList: [
+        { title: '轮播图1', img: './images/web-logo1.png' },
+        { title: '轮播图2', img: './images/web-logo2.jpg' },
+        { title: '轮播图3', img: './images/web-logo3.jpg' }
+      ],
       hostList: [
         [
           { title: '全部', icon: './images/all.png', classify: '全部' },
