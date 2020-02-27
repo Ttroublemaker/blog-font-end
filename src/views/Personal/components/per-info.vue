@@ -61,7 +61,7 @@ export default {
       font-size: 22px;
     }
     p.one-say {
-      font-size: 1rem;
+      font-size: 0.9rem;
       margin-top: 60px;
       letter-spacing: 0.3em;
       text-shadow: 3px 4px 2px #aaa;
@@ -88,7 +88,7 @@ export default {
         content: "";
         position: absolute;
         top: 40px;
-        right: -6px;
+        right: -4px;
         width: 60px;
         height: 60px;
         background: url("../../../assets/images/weixin.jpg") no-repeat center;

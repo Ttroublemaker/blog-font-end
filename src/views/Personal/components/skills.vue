@@ -33,7 +33,7 @@ export default {
           max: 100,
           min: 0,
           nice: false,
-          alias: '掌握程度/100'
+          alias: '  ' //掌握程度/100
         }
       });
       chart.axis('type', {

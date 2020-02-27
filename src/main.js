@@ -15,6 +15,12 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper)
 
+import VueLazyLoad from 'vue-lazyload'
+Vue.use(VueLazyLoad, {
+  error: '../public/images/error.PNG',
+  loading: '../public/images/loadding.jpg'
+})
+
 new Vue({
   router,
   store,

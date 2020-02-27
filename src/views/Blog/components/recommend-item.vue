@@ -5,7 +5,7 @@
     </header>
     <div class="item" v-for="(item,index) in recommendList" :key="index">
       <div class="img">
-        <img src="../../../assets/images/bg1.gif" alt />
+        <img src="../../../../public/images/all.jpg" />
       </div>
       <div class="title">{{item.title}}</div>
       <div class="content">
@@ -48,7 +48,7 @@ export default {
         this.isSmall = true;
         return "prev, pager, next";
       }
-      
+
     }
   },
   methods: {
@@ -56,9 +56,9 @@ export default {
     initData () {
       let loadingInstance = Loading.service({ fullscreen: 'true', text: '拼命加载中', spinner: "el-icon-loading" })
       let params = {
-        page_size: this.page_size, 
-        currentPage:this.currentPage,
-        recommend : 1
+        page_size: this.page_size,
+        currentPage: this.currentPage,
+        recommend: 1
       }
       getBlogList(params).then(res => {
         this.recommendList = res.data.data.data
@@ -74,8 +74,8 @@ export default {
       this.currentPage = val
       this.initData()
     },
-    toDetail(id){
-      this.$router.push({path:'/blog-detail',query:{id}})
+    toDetail (id) {
+      this.$router.push({ path: '/blog-detail', query: { id } })
     }
   }
 }
@@ -107,7 +107,7 @@ export default {
     .img {
       width: 100%;
       height: 0; // 设置高为0，让padding撑起高
-      padding-bottom: 40%; 
+      padding-bottom: 60%;
       overflow: hidden;
       img {
         width: 100%;

@@ -19,7 +19,7 @@
         <tr v-for="(item,index) in hostList" :key="index">
           <td v-for="(list,ind) in item" :key="ind">
             <router-link :to="{path:'/blog',query:{classify:list.classify}}">
-              <img class="icon" :src="list.icon" alt=""><br>
+              <img class="icon" v-lazy="list.icon" alt=""><br>
               <span>{{list.title}}</span>
             </router-link>
           </td>
@@ -36,7 +36,7 @@ export default {
       screenWidth: document.body.clientWidth, //获取body宽度
       hostList: [
         [
-          { title: '全部', icon: './images/all.jpg', classify: '全部' },
+          { title: '全部', icon: './images/all.png', classify: '全部' },
           { title: 'JS', icon: './images/js.png', classify: 'js' },
           { title: 'CSS', icon: './images/css.png', classify: 'css' }
         ],

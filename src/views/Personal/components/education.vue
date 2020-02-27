@@ -44,7 +44,7 @@ export default {
       font-weight: normal;
     }
     p.one-say {
-      font-size: 1.2rem;
+      font-size: 1rem;
       margin-top: 40px;
       letter-spacing: 0.3em;
       text-shadow: 3px 4px 2px #aaa;
