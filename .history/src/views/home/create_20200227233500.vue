@@ -79,7 +79,6 @@ export default {
         this.value = res.data.classify
         this.switch_value = res.data.recommend
         this.title = res.data.title
-        this.fileList = [{ name: '', url: res.data.recImg }]
         this.subtitle = res.data.subtitle
       })
     },
@@ -156,7 +155,8 @@ export default {
     },
     uploadSuccess (response, file, fileList) {
       let url = response.data.file[0]
-      this.recImg = `http://120.78.165.228/api/${url.destination}${url.filename}`
+      this.recImg =  `http://120.78.165.228/api/${url.destination}${url.filename})`
+      console.log(url, `http://120.78.165.228/api/${url.destination}${url.filename})`)
     },
     // 获取分类列表
     getArtClassifyList () {

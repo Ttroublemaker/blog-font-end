@@ -49,8 +49,7 @@ export default {
       classifyList: [],
       value: "",
       switch_value: "",
-      fileList: [],
-      recImg: ''
+      fileList: []
     };
   },
   created () {
@@ -79,7 +78,6 @@ export default {
         this.value = res.data.classify
         this.switch_value = res.data.recommend
         this.title = res.data.title
-        this.fileList = [{ name: '', url: res.data.recImg }]
         this.subtitle = res.data.subtitle
       })
     },
@@ -99,14 +97,14 @@ export default {
       }
       if (this.blogType === '新增博客') {
         createNewBlog({
-          title: this.title, content: this.markdownValue, recommend: this.switch_value, classify: this.value, recImg: this.recImg, subtitle: this.subtitle
+          title: this.title, content: this.markdownValue, recommend: this.switch_value, classify: this.value, subtitle: this.subtitle
         }).then(res => {
           this.$message.success('新建成功')
         })
       } else if (this.blogType === '更新博客') {
         let id = this.$route.query.id;
         updateBlog(id, {
-          title: this.title, content: this.markdownValue, recommend: this.switch_value, classify: this.value, recImg: this.recImg, subtitle: this.subtitle
+          title: this.title, content: this.markdownValue, recommend: this.switch_value, classify: this.value, subtitle: this.subtitle
         }).then(res => {
           this.$message.success('更新成功')
         })
@@ -156,7 +154,7 @@ export default {
     },
     uploadSuccess (response, file, fileList) {
       let url = response.data.file[0]
-      this.recImg = `http://120.78.165.228/api/${url.destination}${url.filename}`
+      console.log(response, `http://120.78.165.228/api/${url.destination}${url.filename})`)
     },
     // 获取分类列表
     getArtClassifyList () {

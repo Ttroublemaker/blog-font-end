@@ -79,7 +79,7 @@ export default {
         this.value = res.data.classify
         this.switch_value = res.data.recommend
         this.title = res.data.title
-        this.fileList = [{ name: '', url: res.data.recImg }]
+        this.fileList = [name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
         this.subtitle = res.data.subtitle
       })
     },
@@ -157,6 +157,7 @@ export default {
     uploadSuccess (response, file, fileList) {
       let url = response.data.file[0]
       this.recImg = `http://120.78.165.228/api/${url.destination}${url.filename}`
+      // console.log(url, `http://120.78.165.228/api/${url.destination}${url.filename}`)
     },
     // 获取分类列表
     getArtClassifyList () {

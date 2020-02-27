@@ -21,10 +21,14 @@
       </div>
       <div class="item">
         <span class="label">推荐图片：</span>
-        <el-upload class="upload-demo" action="http://120.78.165.228/api/file/uploadFile/multiple" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="uploadSuccess" :file-list="fileList" list-type="picture">
-          <el-button size="small" type="primary">点击上传</el-button>
-          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        <el-upload class="upload-demo" drag action="http://120.78.165.228/api/file/uploadFile/multiple" multiple :limit="3" ref="elupload">
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
+        <!-- <el-upload class="upload-demo" action="http://120.78.165.228/api/file/uploadFile/multiple" multiple :limit="3" ref="elupload">
+          <el-button size="small" type="primary">点击上传</el-button>
+        </el-upload> -->
       </div>
       <div class="item">
         <span class="label">文章说明：</span>
@@ -48,9 +52,7 @@ export default {
       subtitle: '',
       classifyList: [],
       value: "",
-      switch_value: "",
-      fileList: [],
-      recImg: ''
+      switch_value: ""
     };
   },
   created () {
@@ -79,7 +81,6 @@ export default {
         this.value = res.data.classify
         this.switch_value = res.data.recommend
         this.title = res.data.title
-        this.fileList = [{ name: '', url: res.data.recImg }]
         this.subtitle = res.data.subtitle
       })
     },
@@ -99,14 +100,14 @@ export default {
       }
       if (this.blogType === '新增博客') {
         createNewBlog({
-          title: this.title, content: this.markdownValue, recommend: this.switch_value, classify: this.value, recImg: this.recImg, subtitle: this.subtitle
+          title: this.title, content: this.markdownValue, recommend: this.switch_value, classify: this.value, subtitle: this.subtitle
         }).then(res => {
           this.$message.success('新建成功')
         })
       } else if (this.blogType === '更新博客') {
         let id = this.$route.query.id;
         updateBlog(id, {
-          title: this.title, content: this.markdownValue, recommend: this.switch_value, classify: this.value, recImg: this.recImg, subtitle: this.subtitle
+          title: this.title, content: this.markdownValue, recommend: this.switch_value, classify: this.value, subtitle: this.subtitle
         }).then(res => {
           this.$message.success('更新成功')
         })
@@ -148,16 +149,6 @@ export default {
         }
       })
     },
-    handleRemove (file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview (file) {
-      console.log(file);
-    },
-    uploadSuccess (response, file, fileList) {
-      let url = response.data.file[0]
-      this.recImg = `http://120.78.165.228/api/${url.destination}${url.filename}`
-    },
     // 获取分类列表
     getArtClassifyList () {
       artClassify().then(res => {
@@ -192,7 +183,6 @@ export default {
       margin-bottom: 20px;
       box-sizing: border-box;
       display: flex;
-      align-items: center;
       .label {
         display: inline-block;
         width: 90px;

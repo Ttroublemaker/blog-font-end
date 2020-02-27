@@ -29,7 +29,7 @@ export const getBlogDetail = (id) => service({
   }
 })
 
-export const createNewBlog = ({ title, content, recommend, classify, recImg, subtitle }) => service({
+export const createNewBlog = ({ title, content, recommend, classify, subtitle }) => service({
   method: 'POST',
   url: '/api/blog/new',
   data: {
@@ -37,21 +37,18 @@ export const createNewBlog = ({ title, content, recommend, classify, recImg, sub
     content,
     recommend,
     classify,
-    recImg,
     subtitle
   }
 })
 
-export const updateBlog = (id, { title, content, recommend, classify, recImg, subtitle }) => service({
+export const updateBlog = (id, { title, content, recommend, classify, subtitle }) => service({
   method: 'POST',
   url: '/api/blog/update?id=' + id,
   data: {
     title,
     content,
     recommend,
-    classify,
-    recImg,
-    subtitle
+    classify, subtitle
   }
 })
 

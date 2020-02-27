@@ -21,7 +21,8 @@
       </div>
       <div class="item">
         <span class="label">推荐图片：</span>
-        <el-upload class="upload-demo" action="http://120.78.165.228/api/file/uploadFile/multiple" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="uploadSuccess" :file-list="fileList" list-type="picture">
+        <el-upload class="upload-demo" action="http://localhost:3000/api/file/uploadFile/multiple" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="uploadSuccess" :file-list="fileList" list-type="picture">
+          <!-- <el-upload class="upload-demo" action="http://120.78.165.228/api/file/uploadFile/multiple" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="uploadSuccess" :file-list="fileList" list-type="picture"> -->
           <el-button size="small" type="primary">点击上传</el-button>
           <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
@@ -156,7 +157,7 @@ export default {
     },
     uploadSuccess (response, file, fileList) {
       let url = response.data.file[0]
-      this.recImg = `http://120.78.165.228/api/${url.destination}${url.filename}`
+      this.recImg = `http://localhost:3000/api/${url.destination}${url.filename}`
     },
     // 获取分类列表
     getArtClassifyList () {

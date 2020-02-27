@@ -49,9 +49,7 @@ export const updateBlog = (id, { title, content, recommend, classify, recImg, su
     title,
     content,
     recommend,
-    classify,
-    recImg,
-    subtitle
+    classify, subtitle
   }
 })
 
