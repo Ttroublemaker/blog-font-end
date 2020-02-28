@@ -46,7 +46,7 @@ export default {
         return "total,sizes, prev, pager, next, jumper";
       } else {
         this.isSmall = true;
-        return "prev, pager, next";
+        return "total, prev, pager, next";
       }
 
     }
@@ -109,9 +109,21 @@ export default {
       height: 0; // 设置高为0，让padding撑起高
       padding-bottom: 60%;
       overflow: hidden;
+      border-bottom: 1px solid #ddd;
+      position: relative;
       img {
         width: 100%;
         transition: all 0.5s;
+      }
+      img[lazy="loading"],
+      img[lazy="error"] {
+        width: 50%;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        margin: auto;
       }
     }
     .title {

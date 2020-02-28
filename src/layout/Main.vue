@@ -1,7 +1,9 @@
 <template>
   <div class="main-container">
     <headerBar />
-    <router-view :key="$route.fullPath" />
+    <keep-alive>
+      <router-view :key="$route.fullPath" />
+    </keep-alive>
     <el-backtop :visibility-height="400" :bottom="40">
       <i class="iconfont icon-fanhuidingbu"></i>
     </el-backtop>

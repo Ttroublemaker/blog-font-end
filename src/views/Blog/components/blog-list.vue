@@ -55,7 +55,7 @@ export default {
         return "total, sizes, prev, pager, next, jumper";
       } else {
         this.isSmall = true;
-        return "prev, pager, next";
+        return "total, prev, pager, next";
       }
     }
   },

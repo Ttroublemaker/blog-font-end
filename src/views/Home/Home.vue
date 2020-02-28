@@ -61,11 +61,22 @@ export default {
     carouselHeight () {
       if (this.screenWidth > 800) {
         return "300px";
-      } else {
+      } else if(this.screenWidth > 600){
         return "200px";
+      }else{
+        return "160px"
       }
     }
   },
+  mounted () {
+    const that = this
+    window.onresize = () => {
+      return (() => {
+        window.screenWidth = document.body.clientWidth
+        that.screenWidth = window.screenWidth
+      })()
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -76,9 +87,21 @@ export default {
   // height: calc(100vh - #{$HEIGHT} - 30px);
   .carousel {
     .el-carousel {
+      border: 1px solid #ddd;
       img {
         width: 100%;
         height: 100%;
+      }
+      img[lazy="loading"],
+      img[lazy="error"] {
+        width: 50%;
+        height: 50%;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        margin: auto;
       }
     }
   }
