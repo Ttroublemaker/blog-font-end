@@ -2,18 +2,18 @@
   <div class="home-container" ref='container'>
     <div class="carousel">
       <el-carousel trigger="click" :height="carouselHeight">
-        <el-carousel-item v-for="(item,index) in carouselList" :key="index">
+        <!-- <el-carousel-item v-for="(item,index) in carouselList" :key="index">
           <img class="icon" v-lazy="item.img" :key="index" alt="">
-        </el-carousel-item>
-        <!-- <el-carousel-item>
-          <img class="icon" src="./images/web-logo1.png" alt="">
+        </el-carousel-item> -->
+        <el-carousel-item>
+          <img class="icon" src="./images/web-logo1.jpg" alt="">
         </el-carousel-item>
         <el-carousel-item>
           <img class="icon" src="./images/web-logo2.jpg" alt="">
         </el-carousel-item>
         <el-carousel-item>
           <img class="icon" src="./images/web-logo3.jpg" alt="">
-        </el-carousel-item> -->
+        </el-carousel-item>
       </el-carousel>
     </div>
     <div class="content-container">
@@ -38,7 +38,7 @@ export default {
     return {
       screenWidth: document.body.clientWidth, //获取body宽度
       carouselList: [
-        { title: '轮播图1', img: './images/web-logo1.png' },
+        { title: '轮播图1', img: './images/web-logo1.jpg' },
         { title: '轮播图2', img: './images/web-logo2.jpg' },
         { title: '轮播图3', img: './images/web-logo3.jpg' }
       ],
@@ -61,9 +61,9 @@ export default {
     carouselHeight () {
       if (this.screenWidth > 800) {
         return "300px";
-      } else if(this.screenWidth > 600){
+      } else if (this.screenWidth > 600) {
         return "200px";
-      }else{
+      } else {
         return "160px"
       }
     }
@@ -135,7 +135,7 @@ export default {
         }
         .icon {
           width: 100%;
-          border-radius: 5px;
+          border-radius: 2px;
         }
         &.list-item:hover {
           cursor: pointer !important;

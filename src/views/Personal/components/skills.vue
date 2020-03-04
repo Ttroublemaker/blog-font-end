@@ -10,10 +10,10 @@ export default {
   data () {
     return {
       dataArr: [
-        { type: 'HTML+CSS', value: 80 },
-        { type: 'Js+ES6', value: 80 },
+        { type: '小程序', value: 60 },
         { type: 'Vue', value: 80 },
-        { type: 'Nodejs', value: 60 },
+        { type: 'Js+ES6', value: 80 },
+        { type: 'HTML+CSS', value: 80 },
       ]
     }
   },

@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="item title">教育背景</div>
-    <div class="item school"><a href="http://www.cqu.edu.cn/"><img src="./images/tsg1.jpg" alt=""></a> </div>
-    <div class="item school"><img src="./images/logo.png" alt=""></div>
+    <a class="item school-img" href="http://www.cqu.edu.cn/"></a>
+    <div class="item school-logo"><img src="./images/logo.jpg" alt=""></div>
     <div class="item disciplines">能源与动力工程学院</div>
     <div class="item time">2012.09 ~ 2016.07</div>
     <div class="item">
@@ -27,14 +27,22 @@ export default {
     transition: all 1s;
     margin-bottom: 10px;
     &.title {
-      font-size: 30px;
+      font-size: 26px;
       font-weight: bold;
       margin-bottom: 20px;
     }
-    &.school {
-      font-size: 26px;
+    &.school-img {
+      display: inline-block;
+      height: 200px;
+      width: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: url("./images/school.jpg") no-repeat center;
+      background-size: cover;
+    }
+    &.school-logo {
       img {
-        width: 70%;
+        width: 100%;
         border-radius: 4px;
       }
     }

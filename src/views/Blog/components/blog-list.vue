@@ -4,7 +4,7 @@
       <i class="iconfont icon-liebiao2"></i>博客列表
     </header>
     <section class='classify'>
-      <span class="label">分类</span>
+      <span class="label" v-if="classifyList.length">分类</span>
       <el-radio-group v-model="radio" @change='classifySwitch'>
         <el-radio :label="item" v-for="(item,index) in classifyList" :key='index'>{{item}}</el-radio>
       </el-radio-group>
@@ -24,10 +24,10 @@ export default {
   components: {
     blogItem
   },
-  props:{
-    classify:{
-      type:String,
-      default:'全部'
+  props: {
+    classify: {
+      type: String,
+      default: '全部'
     }
   },
   data () {
@@ -37,9 +37,9 @@ export default {
       blogList: [],
       total: 0,
       currentPage: 1,
-      page_size:10,
+      page_size: 10,
       radio: '全部',
-      classifyList:[]
+      classifyList: []
     };
   },
   created () {
@@ -64,9 +64,9 @@ export default {
     initData () {
       let loadingInstance = Loading.service({ fullscreen: 'true', text: '拼命加载中', spinner: "el-icon-loading" })
       let params = {
-        page_size: this.page_size, 
-        classify:this.radio,
-        currentPage:this.currentPage,
+        page_size: this.page_size,
+        classify: this.radio,
+        currentPage: this.currentPage,
       }
       getBlogList(params).then(res => {
         this.blogList = res.data.data.data
@@ -75,9 +75,9 @@ export default {
       })
     },
     // 获取分类列表
-    getArtClassifyList(){
-      artClassify().then(res=>{
-        this.classifyList= ['全部',...res.data.data]
+    getArtClassifyList () {
+      artClassify().then(res => {
+        this.classifyList = ['全部', ...res.data.data]
       })
     },
     handleSizeChange (val) {
@@ -88,7 +88,7 @@ export default {
       this.currentPage = val
       this.initData()
     },
-    classifySwitch(radio){
+    classifySwitch (radio) {
       this.initData()
     }
   }
@@ -96,7 +96,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   .header {
     margin-bottom: 10px;
     padding: 10px 0;
@@ -111,16 +111,16 @@ export default {
       width: 50px;
       line-height: 26px;
     }
-    .el-radio-group{
+    .el-radio-group {
       padding-left: 10px;
       overflow: scroll;
       display: flex;
-      &::-webkit-scrollbar{
-        display:none
+      &::-webkit-scrollbar {
+        display: none;
       }
     }
-    .el-radio{
-      margin:5px 10px 5px 0;
+    .el-radio {
+      margin: 5px 10px 5px 0;
     }
   }
   .notice {

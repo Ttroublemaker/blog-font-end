@@ -1,16 +1,11 @@
 <template>
   <div class="blog">
-    <!-- <el-upload class="upload-demo" action="http://localhost:3000/file/uploadFile/multiple" multiple :limit="3" ref="elupload">
-      <el-button size="small" type="primary">点击上传</el-button>
-    </el-upload>
-    <el-button size="small" type="primary" @click="download" style="margin:10px 0">点击下载</el-button>
-    <el-button size="small" type="primary" @click="del">点击删除</el-button> -->
     <div class="search-list">
       <searchResult @searching="closeSearch" />
     </div>
-    <el-switch class='switch' v-model="listValue"  v-if="!searching" active-text="推荐列表" inactive-text="博客列表" @change='switchList' ></el-switch>
+    <el-switch class='switch' v-model="listValue" v-if="!searching" active-text="推荐列表" inactive-text="博客列表" @change='switchList'></el-switch>
     <div class="blog-list" v-if="!searching&&!listValue">
-      <blogList :classify='classify'/>
+      <blogList :classify='classify' />
     </div>
     <div class="recommend-list" v-if="!searching&&listValue">
       <recommendItem />
@@ -37,13 +32,13 @@ export default {
       listValue: true
     };
   },
-  computed:{
-    classify(){
+  computed: {
+    classify () {
       return this.$route.query.classify
     }
   },
-  created(){
-    this.listValue = this.$route.query.listType==='recommend'?true:false
+  created () {
+    this.listValue = this.$route.query.listType === 'recommend' ? true : false
   },
   methods: {
     closeSearch (val) {
@@ -66,7 +61,7 @@ export default {
     del () {
 
     },
-    switchList(val){
+    switchList (val) {
       console.log(val)
     }
   }
@@ -101,7 +96,7 @@ export default {
     right: 0;
     width: 30%;
   }
-  .switch{
+  .switch {
     margin-top: -20px;
     margin-bottom: 10px;
   }

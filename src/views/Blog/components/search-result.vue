@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="seacrh-title">
-      <el-input placeholder="按关键字搜索blog" v-model="searchInput" clearable @keyup.enter.native="search" width='200px' />
+      <el-input placeholder="按关键字搜索blog" v-model="searchInput" clearable @keyup.enter.native="search"></el-input>
       <el-button type="primary" icon="el-icon-search" @click.native="search">搜索</el-button>
     </div>
     <div class="search-list" v-if="searching">
@@ -66,8 +66,8 @@ export default {
       let loadingInstance = Loading.service({ fullscreen: 'true', text: '拼命加载中', spinner: "el-icon-loading" })
       let params = {
         keyword: this.searchInput,
-        page_size: this.page_size, 
-        currentPage:this.currentPage,
+        page_size: this.page_size,
+        currentPage: this.currentPage,
       }
       getBlogList(params).then(res => {
         this.searchList = res.data.data.data
@@ -91,9 +91,9 @@ export default {
   border-radius: 2px;
   .seacrh-title {
     margin-bottom: 20px;
-    display: inline-flex;
     .el-input {
       margin-right: 10px;
+      width: 200px;
     }
   }
 
